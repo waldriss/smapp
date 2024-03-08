@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {NextUIProvider} from "@nextui-org/system";
+import Providers from "@/components/Generalcomponents/Providers";
+import { cookies } from "next/headers";
+import SideNav from "@/components/Generalcomponents/SideNav";
+import Resizable from "@/components/Generalcomponents/Resizable";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +19,34 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+  const layout = cookies().get("react-resizable-panels:layout")
+  const collapsed = cookies().get("react-resizable-panels:collapsed")
+
+  const defaultLayout = layout ? JSON.parse(layout.value) : undefined
+  const defaultCollapsed =false;
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+     
+      <body className={`${inter.className} h-full`}>
+        <Providers>
+                <Resizable
+          
+                defaultLayout={defaultLayout}
+                defaultCollapsed={defaultCollapsed}
+                navCollapsedSize={4}
+                >
+                {children}
+                </Resizable>
+        
+        </Providers>
+      </body>
+     
+     
+          
+
+     
     </html>
   );
 }
