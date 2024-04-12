@@ -13,7 +13,7 @@ const TopAccounts = ({InitialtopUsers,userId,token}:{InitialtopUsers:TopUser[],u
     <section className='overflow-y-scroll customScrollBar_dark w-full pt-28 hidden lg:block'>
 
     <section className='grid grid_auto py-14 gap-y-5 gap-x-1 pl-[18px] pr-0 justify-items-center  '>
-      {users.map((user)=><TopAccount user={user} />)}
+      {users.map((user)=><TopAccount key={user.id} user={user} />)}
       
      
       
