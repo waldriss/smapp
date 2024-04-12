@@ -17,8 +17,8 @@ export function generateUniqueId() {
   console.log(randomStr) // Generate random string
   return timestamp + randomStr; // Concatenate timestamp and random string
 }
-export const backendUrl="http://localhost:5000/"
-
+//export const backendUrl="http://localhost:5000/"
+export const backendUrl="https://sm-backend-i6qz.onrender.com/"
 
 export const NotificationBody = (notification:TNotification) => {
   switch (notification.type) {
