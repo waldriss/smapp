@@ -14,6 +14,10 @@ const config = {
 	],
   prefix: "",
   theme: {
+    fontFamily:{
+      'sans':['var(--font-montserrat-mono)','sans-serif'],
+      
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -22,8 +26,13 @@ const config = {
       },
     },
     extend: {
+      fontFamily:{
+        'sans-serif2':['var(--font-open-sans-mono)', 'sans-serif2'],
+
+      },
       colors: {
         whiteShade:"var(--whiteShade)",
+        borderPrimary:"var(--borderPrimary)",
         bgShade1:"var(--bgShade1)",
         backgroundgrad2:"var(--backgroundgrad2)",
         backgroundgrad1:"var(--backgroundgrad1)",

@@ -15,6 +15,7 @@ interface NavProps {
     icon: LucideIcon;
     variant: "default";
     active: boolean;
+    url: string;
   }[];
 }
 
@@ -30,16 +31,18 @@ export function Nav({ links, isCollapsed }: NavProps) {
             <Tooltip key={index} delayDuration={0}>
               <TooltipTrigger asChild>
                 <Link
-                  href="#"
+                  href={link.url}
                   className={cn(
                     buttonVariants({ variant: link.variant, size: "icon" }),
                     "h-12 w-12   rounded-[5px]",
                     link.variant === "default" &&
                       link.active &&
-                      "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+                      "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white",
+                    !link.active &&
+                      "bg-transparent text-whiteShade hover:bg-[rgb(255,255,255,0.02)]"
                   )}
                 >
-                  <link.icon className="h-5 w-5" />
+                  <link.icon className="md:stroke-1 lg:stroke-2 h-6 w-6" />
                   <span className="sr-only">{link.title}</span>
                 </Link>
               </TooltipTrigger>
@@ -55,18 +58,16 @@ export function Nav({ links, isCollapsed }: NavProps) {
           ) : (
             <Link
               key={index}
-              href="#"
+              href={link.url}
               className={cn(
                 buttonVariants({ variant: link.variant, size: "lg" }),
                 link.variant === "default" &&
-                  link.active &&
-                  "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                "justify-start pl-5 text-base py-7 rounded-[5px]",
+                "justify-start min-w-0 font-sans font-medium pl-5 md:text-sm lg:text-base  py-7 rounded-[5px]",
                 !link.active &&
                   "bg-transparent text-whiteShade hover:bg-[rgb(255,255,255,0.02)]"
               )}
             >
-              <link.icon className="mr-3 h-6 w-6" />
+              <link.icon className="mr-3 md:stroke-1 lg:stroke-2 min-h-6 min-w-6 w-6 h-6" />
               {link.title}
               {link.label && (
                 <span

@@ -1,38 +1,54 @@
 import ExplorePost from "@/components/Generalcomponents/ExplorePost";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TUserPost } from "@/lib/types/user";
 import React from "react";
 
-const ProfilePosts = () => {
+const ProfilePosts = ({
+  userPosts,
+  userSharedPosts,
+}: {
+  userPosts: TUserPost[];
+  userSharedPosts: TUserPost[];
+}) => {
   return (
-    <section>
-      <Tabs defaultValue="allPosts" className="w-full mt-14">
-        <TabsList className="w-[400px] bg-[#1e1e29] h-14 p-0">
-          <TabsTrigger className="w-1/2 h-full " value="allPosts">
+    <section className="pl-3 pr-1  sm:pl-8 sm:pr-6 lg:pl-[52px]  lg:pr-12">
+      <Tabs defaultValue="allPosts" className="w-full text-center  mt-14">
+        <TabsList className=" w-[250px] sm:w-[400px] font-sans  mx-auto bg-transparent !text-whiteShade h-11 sm:h-14 p-0">
+          <TabsTrigger
+            className="text-xs sm:text-base w-1/2 rounded-r-none rounded-l-3xl h-full bg-secondary active:bg-white !text-whiteShade data-[state=active]:bg-primary "
+            value="allPosts"
+          >
             Posts
           </TabsTrigger>
-          <TabsTrigger className="w-1/2 h-full " value="likedPosts">
-            Liked Posts
+          <TabsTrigger
+            className="text-xs sm:text-base w-1/2 rounded-l-none rounded-r-3xl h-full bg-secondary !text-whiteShade data-[state=active]:bg-primary "
+            value="sharedPosts"
+          >
+            Shared Posts
           </TabsTrigger>
         </TabsList>
         <TabsContent value="allPosts">
-          <div className="my-14 grid grid-cols-3 gap-x-[2px] gap-y-[2px]   justify-items-center max-w-full mx-auto rounded-[50px] overflow-hidden">
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
-            <ExplorePost subclass="!rounded-none " isprofilePage />
+          <div className="my-14 grid grid-cols-3 gap-x-[2px] gap-y-[2px]   justify-items-center max-w-full mx-auto rounded-[50px] overflow-hidden ">
+            {userPosts?.map((userPost) => (
+              <ExplorePost
+                key={userPost.id}
+                post={userPost}
+                subclass="!rounded-none "
+                isprofilePage
+              />
+            ))}
           </div>
         </TabsContent>
-        <TabsContent value="likedPosts">
-          <div className="py-14 grid grid_auto gap-x-6 gap-y-8  justify-items-center max-w-full">
-            <ExplorePost />
-            <ExplorePost />
-            <ExplorePost />
-            <ExplorePost />
+        <TabsContent value="sharedPosts">
+          <div className="my-14 grid grid-cols-3 gap-x-[2px] gap-y-[2px]   justify-items-center max-w-full mx-auto rounded-[50px] overflow-hidden">
+            {userSharedPosts?.map((userSharedPost) => (
+              <ExplorePost
+                key={userSharedPost.id}
+                post={userSharedPost}
+                subclass="!rounded-none "
+                isprofilePage
+              />
+            ))}
           </div>
         </TabsContent>
       </Tabs>

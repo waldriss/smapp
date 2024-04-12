@@ -1,10 +1,12 @@
+import { UserToRegister } from "../types/user";
 import { backendUrl } from "../utils";
 
 export const registerUserInDB = async (
-  email: string,
-  username: string,
-  name: string,
-  password:string
+ { email,
+  username,
+  name,
+  password
+}:UserToRegister
 ) => {
   try {
     const res = await fetch(`${backendUrl}register`, {
@@ -16,15 +18,49 @@ export const registerUserInDB = async (
     });
 
     if (!res.ok) {
-      throw new Error("Error registering user in db:");
+      const error=await res.json();
+      
+      throw new Error(error.message);
     }
     else{
         return res.json();
     }
   } catch (error) {
-    console.error("Error registering user in db:", error);
+    
+    throw error
   }
 };
+
+
+export const SigInOrSignUpGoogleInDB = async (
+  email: string,
+  name: string,
+  userId:string,
+) => {
+  try {
+    const res = await fetch(`${backendUrl}SigInOrSignUpGoogle`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, name,userId }),
+    });
+
+    if (!res.ok) {
+      const error=await res.json();
+      
+      throw new Error(error.message);
+    }
+    else{
+        return res.json();
+    }
+  } catch (error) {
+    
+    throw error
+  }
+};
+
+
 
 export const SignInUserInDB = async (
   email: string,

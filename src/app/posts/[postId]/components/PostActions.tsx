@@ -1,43 +1,54 @@
-import AnimatedHeart from '@/components/Generalcomponents/AnimatedHeart'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
-import { BookmarkPlus } from 'lucide-react'
-import React from 'react'
+"use client";
+import AnimatedHeart from "@/components/Generalcomponents/AnimatedHeart";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { BookmarkPlus } from "lucide-react";
+import React, { useRef } from "react";
+import CommentForm from "./CommentForm";
+import { Liker, Sharer } from "@/lib/types/Post";
+import Share from "@/components/Generalcomponents/Share";
 
-const PostActions = () => {
+const PostActions = ({
+  postId,
+  userId,
+  likers,
+  sharers,
+  setlikesNumber
+}: {
+  postId: number;
+  userId?: string | null;
+  likers:Liker[],
+  sharers:Sharer[],
+  setlikesNumber:any
+}) => {
+  const submitRef = useRef<HTMLButtonElement>(null);
+  const handleClick = () => {
+    if (submitRef.current) {
+      submitRef.current.click();
+    }
+  };
+
   return (
-    <section className=''>
-    <Separator className='bg-[#1d1f2a] mt-2 '/>
-    <div className="flex items-center space-x-2 pt-4   ">
-      <Avatar className='w-10 h-10'>
-        <AvatarImage src="/avatars/01.png" />
-        <AvatarFallback>OM</AvatarFallback>
-      </Avatar>
-      
-      <form className='flex-grow'>
-       <Input className='bg-transparent rounded-full '/>
-      </form>
-    
-    </div>
-   
-    <div className=' gap-x-2 relative flex justify-start items-center pt-3'>
-                        <div className='flex justify-start items-center'>
-                        <AnimatedHeart subclass='!w-[56px]'/>
+    <section className=" font-sans-serif2">
+      <Separator className="bg-[#171821] mt-3 " />
+      <CommentForm postId={postId} userId={userId} submitRef={submitRef} />
 
-                        </div>
-                        
-                    
-                        
-                    
-                        <BookmarkPlus className='w-7 h-7 text-whiteShade'/>
-                        <Button className='absolute right-0 rounded-full px-7 py-5'> Publish</Button>
-     </div>
-  
-
+      <div className=" gap-x-2 relative flex justify-start items-center pt-2">
+        <div className="flex justify-start items-center ">
+          {<AnimatedHeart setlikesNumber={setlikesNumber} postId={postId} likers={likers} subclass='!w-[52px] mb-1'/>}
+        </div>
+        <Share className="w-8 h-8 text-whiteShade" sharers={sharers} postId={postId}/>
+       
+        <Button
+          onClick={handleClick}
+          className="absolute font-sans right-0 rounded-full px-7 py-5"
+        >
+          {" "}
+          Publish
+        </Button>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default PostActions
+export default PostActions;

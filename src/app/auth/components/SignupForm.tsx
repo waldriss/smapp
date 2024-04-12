@@ -19,30 +19,50 @@ import {
 } from "@/components/ui/form";
 import { useSignUp } from "@clerk/nextjs";
 import { registerUserInDB } from "@/lib/api/AuthRequests";
+import { toast } from "sonner";
+import { generateUniqueId } from "@/lib/utils";
+import { useRegisterInDB } from "@/lib/react-query/mutations";
 
-const formSchema = z.object({
-  email_reg: z.string().min(2, {
-    message: "email must be at least 2 characters.",
-  }),
-  password_reg: z.string().min(6, {
-    message: "password must be at least 6 characters.",
-  }),
-  username: z.string().min(8, {
-    message: "username must be at least 8 characters.",
-  }),
-  name: z.string().min(6, {
-    message: "name must be at least 6 characters.",
-  }),
-  password_reg_confirmation: z.string().min(6, {
-    message: "password confirmation must be at least 6 characters.",
-  }),
-});
+const formSchema = z
+  .object({
+    email_reg: z.string().min(2, {
+      message: "email must be at least 2 characters.",
+    }),
+    password_reg: z.string().min(8, {
+      message: "password must be at least 8 characters.",
+    }),
+    username: z.string().min(8, {
+      message: "username must be at least 8 characters.",
+    }),
+    name: z.string().min(6, {
+      message: "name must be at least 6 characters.",
+    }),
+    password_reg_confirmation: z.string().min(8, {
+      message: "password confirmation must be at least 8 characters.",
+    }),
+  })
+  .refine((data) => data.password_reg === data.password_reg_confirmation, {
+    message: "Passwords don't match",
+    path: ["password_reg_confirmation"],
+  });
 
-const SignupForm = () => {
+const SignupForm = ({isLoading,setIsLoading}:{isLoading:boolean,setIsLoading:any}) => {
+  const {mutateAsync:registerInDB}=useRegisterInDB()
   
+  const toastContent = (message: string,id:string) => (
+    <div className="w-full">
+      <h4 className="font-sans font-semibold text-whiteShade text-base ">
+        Authentification
+      </h4>
+      <div className="font-sans-serif2 flex items-center justify-between w-full">
+        <p className="text-muted-foreground text-[0.95rem]">{message}</p>
+        <Button className="font-sans" onClick={()=>toast.dismiss(id)} size={"sm"}>Undo</Button>
+      </div>
+    </div>
+  );
+
   const { isLoaded, signUp, setActive } = useSignUp();
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -53,15 +73,20 @@ const SignupForm = () => {
       firstName:values.name,
     
     });*/
+    setIsLoading(true);
 
-      const resp=await registerUserInDB(values.email_reg,values.username,values.name,values.password_reg);
-      console.log(resp);
-
-    
-        
+      const resp = await registerInDB({
+        email:values.email_reg,
+        username:values.username,
+        name:values.name,
+        password:values.password_reg}
+      );
+    } catch (error: any) {
+      setIsLoading(false);
       
-    } catch (error) {
-      console.error("Error signing in:", error);
+      const id=generateUniqueId();
+      
+      toast(toastContent(error.message,id),{position:"bottom-center",id:id});
     }
   }
 
@@ -77,7 +102,7 @@ const SignupForm = () => {
   });
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form className={`font-sans-serif2 ${isLoading?'hidden':'block'} `} onSubmit={form.handleSubmit(onSubmit)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <FormField
@@ -181,11 +206,11 @@ const SignupForm = () => {
               )}
             />
           </div>
-          <Button disabled={isLoading}>
+          <Button className="font-sans" disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign In
+            Sign Up
           </Button>
         </div>
       </form>

@@ -1,33 +1,67 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Separator } from '@/components/ui/separator'
-import React from 'react'
-import Comments from './Comments'
-import PostActions from './PostActions'
-import { TPostDetails } from '@/lib/types/Post'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import React, { useState } from "react";
 
-const PostInfos = ({post}:{post:TPostDetails}) => {
+import { TPostDetails } from "@/lib/types/Post";
+import PostCommentsAndActions from "./PostCommentsAndActions";
+import { UseMutateAsyncFunction } from "@tanstack/react-query";
+import { calculateTimeElapsed } from "@/lib/utils";
+
+const PostInfos = ({
+  post,
+  deletePost,
+}: {
+  post: TPostDetails;
+  deletePost: UseMutateAsyncFunction<
+    any,
+    Error,
+    {
+      postId: number;
+      userId: string;
+    },
+    unknown
+  >;
+}) => {
+  const [likesNumber,setlikesNumber]=useState(post.liked_posts.length);
   return (
-   <section className=' w-1/2 bg-bgShade1 pt-5 px-7 pb-1'>
-    <div className="flex items-center space-x-2    ">
-      <Avatar className='w-12 h-12'>
-        <AvatarImage src="/avatars/01.png" />
-        <AvatarFallback>{post.poster.name.substring(0, 2)}</AvatarFallback>
-      </Avatar>
-      
-      <div>
-        <p className="text-sm font-semibold text-whiteShade leading-none">{post.poster.name}</p>
-        <p className="text-sm text-muted-foreground">@{post.poster.username}</p>
+    <section className=" relative w-full xl:w-1/2  bggradientPostInfos pt-5  px-3 sm:px-7 pb-3 xl:pb-1">
+      <div className="flex items-center space-x-2 font-sans-serif2    ">
+        <Avatar className="w-12 h-12">
+          <AvatarImage src={post.poster.userImage} />
+          <AvatarFallback>{post.poster.name.substring(0, 2)}</AvatarFallback>
+        </Avatar>
+
+        <div>
+          <p className="text-sm font-semibold text-whiteShade leading-none">
+            {post.poster.name}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            @{post.poster.username}
+          </p>
+        </div>
       </div>
-    
-    </div>
-  <Separator className='bg-[#1d1f2a] mt-6 '/>
-  <p className='text-base text-whiteShade pt-6 min-h-[100px]'> {post.caption}</p>
-  
-  <Comments/>
-  <PostActions/>
+      <Separator className="bg-[#171821] mt-6 " />
+      <p className="text-center flex flex-col  sm:flex-row justify-between font-sans-serif2 text-sm sm:text-base pt-1 w-full text-muted-foreground font-extralight">
+        {calculateTimeElapsed(post.createdAt)}
+        <span className="text-muted-foreground ">{post.location}</span>
+      </p>
 
-   </section>
-  )
-}
+      <div className="pt-6 font-sans-serif2  flex justify-between text-base text-whiteShade font-normal ">
+        <div>
+          Liked by <span className="font-semibold">{likesNumber} </span> and{" "}
+          <span className="font-semibold">
+            {likesNumber > 2 ? likesNumber - 1 + " more" : ""}{" "}
+          </span>
+        </div>
+      </div>
+      <p className="font-normal text-base text-whiteShade pt-4 min-h-[100px]">
+        {" "}
+        {post.caption}
+      </p>
 
-export default PostInfos
+      <PostCommentsAndActions setlikesNumber={setlikesNumber} deletePost={deletePost} post={post} />
+    </section>
+  );
+};
+
+export default PostInfos;

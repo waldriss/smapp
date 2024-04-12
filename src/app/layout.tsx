@@ -1,13 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import {NextUIProvider} from "@nextui-org/system";
 import Providers from "@/components/Generalcomponents/Providers";
 import { cookies } from "next/headers";
 import SideNav from "@/components/Generalcomponents/SideNav";
 import Resizable from "@/components/Generalcomponents/Resizable";
+import ResizableProvider from "@/components/Generalcomponents/ResizableProvider";
+import { Toaster } from "@/components/ui/sonner";
+import {Merriweather,Montserrat,Open_Sans  } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
+
+
+const open_Sans=Open_Sans({subsets:["latin"],display:'swap',
+variable:'--font-open-sans-mono',weight:["300","400","700","500","600","800"]});
+
+const montserrat=Montserrat({subsets:["latin"],display:"swap",variable:"--font-montserrat-mono",weight:["300","400","700","900","100","200","500","600","800"]});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,26 +31,20 @@ export default function RootLayout({
 }>) {
 
 
-  const layout = cookies().get("react-resizable-panels:layout")
-  const collapsed = cookies().get("react-resizable-panels:collapsed")
-
-  const defaultLayout = layout ? JSON.parse(layout.value) : undefined
-  const defaultCollapsed =false;
+  
   return (
     <html lang="en">
      
-      <body className={`${inter.className} h-full`}>
+      <body className={`${inter.className} ${montserrat.variable} ${open_Sans.variable} h-full`}>
         <Providers>
-                <Resizable
-          
-                defaultLayout={defaultLayout}
-                defaultCollapsed={defaultCollapsed}
-                navCollapsedSize={4}
-                >
-                {children}
-                </Resizable>
-        
+          <ResizableProvider>
+            {children}
+          </ResizableProvider>
+               
+          <Toaster  />
         </Providers>
+        
+
       </body>
      
      

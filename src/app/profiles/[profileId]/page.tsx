@@ -4,22 +4,20 @@ import ProfileStats from "./components/ProfileStats";
 import ProfileInfos from "./components/ProfileInfos";
 import ProfilePosts from "./components/ProfilePosts";
 import ProfileHeader from "./components/ProfileHeader";
-import { getUser } from "@/lib/api/serverSideRequests";
+import { getServerSideUser } from "@/lib/api/serverSideRequests";
 import { TUser } from "@/lib/types/user";
+import ProfileContainer from "./components/ProfileContainer";
+import { auth } from "@clerk/nextjs";
 
 const ProfilePage = async({params:{profileId}}:{params:{profileId:string}}) => {
-  const user:TUser=await getUser(profileId);
+  const {getToken}=auth()
+  const token=await getToken()
+
+  const user:TUser=await getServerSideUser(profileId,token);
+  
 
   return (
-    <article className="pb-14 bggradient">
-      <ProfileHeader  userImage={user?.userImage} />
-      <ProfileStats />
-
-      <section className="pl-[52px] pt-2 pr-12">
-        <ProfileInfos name={user.name} userName={user.username} />
-        <ProfilePosts />
-      </section>
-    </article>
+   <ProfileContainer token={token} userId={profileId} user={user}/>
   );
 };
 

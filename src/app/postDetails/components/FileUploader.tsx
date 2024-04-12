@@ -1,20 +1,33 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 
 import { Button } from "@/components/ui/button";
 import { ImagePlus } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { useFormField } from "@/components/ui/form";
 
 type FileUploaderProps = {
   fieldChange: (files: File[]) => void;
-  mediaUrl: string;
+  mediaUrl: string|undefined;
+  resetFile:boolean;
+  setResetFile:any
 };
 const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
-const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
+const FileUploader = ({ fieldChange, mediaUrl,setResetFile,resetFile }: FileUploaderProps) => {
+    useEffect(()=>{
+      if(resetFile===true){
+        setFile([]);
+        setFileUrl(undefined);
+        setResetFile(false);
+      }
+
+    },[resetFile])
+
+
   const [file, setFile] = useState<File[]>([]);
-  const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
+  const [fileUrl, setFileUrl] = useState<string|undefined>(mediaUrl);
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
@@ -65,7 +78,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             SVG, PNG, JPG
           </p>
 
-          <Button type="button" className="bg-[#262836]">
+          <Button type="button" className="bg-[#262836] font-sans">
             Select from computer
           </Button>
         </div>
