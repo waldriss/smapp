@@ -7,7 +7,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const socket = io("http://localhost:5000");
+//export const socket = io("http://localhost:5000");
+export const socket = io("https://sm-backend-i6qz.onrender.com/");
 
 
 
