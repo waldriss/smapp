@@ -34,11 +34,12 @@ const NotificationMenu = ({
   token:string|null
 }) => {
   
-  const { mutate: seeNotification } = useSeeNotification(token);
-
+ 
   const queryClient = useQueryClient();
   const router = useRouter();
   const { getToken } = useAuth();
+  const { mutate: seeNotification } = useSeeNotification(getToken);
+
   const { data, hasNextPage, fetchNextPage,refetch } = useGetNotifications(
     userId,
     InitialNotifications,
