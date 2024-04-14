@@ -2,10 +2,11 @@ import React from "react";
 import bnb from "@public/svgs/BNB-33 (1).svg";
 
 import { Plus } from "lucide-react";
-import { Image, Home, Send } from "lucide-react";
+import { Image as ImgIcon, Home, Send } from "lucide-react";
 import Link from "next/link";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const BottomNav = () => {
   const {authenticatedUser,setauthenticatedUser}=UseAuthenticatedUser();
@@ -28,7 +29,7 @@ const BottomNav = () => {
               <Home className={` h-8 w-8 sm:h-9 sm:w-9 ${pathname==="/"?'text-primary textLuminousShadow':"text-whiteShade"} stroke-[1.5]`} />
             </Link>
             <Link href={"/posts"}>
-              <Image className={` h-8 w-8 sm:h-9 sm:w-9 ${pathname==="/posts"?'text-primary textLuminousShadow':"text-whiteShade"} stroke-[1.5]`} />
+              <ImgIcon className={` h-8 w-8 sm:h-9 sm:w-9 ${pathname==="/posts"?'text-primary textLuminousShadow':"text-whiteShade"} stroke-[1.5]`} />
             </Link>
           </div>
           <div className="flex w-1/2 justify-evenly pl-5 sm:pl-6">
@@ -37,7 +38,7 @@ const BottomNav = () => {
             </Link>
 
             <Link href={"/profiles/"+authenticatedUser?.id}>
-              <div className="rounded-full h-8 w-8 sm:h-9 sm:w-9 bg-secondary"></div>
+              <Image height={32} width={32} src={authenticatedUser?.userImage||""} alt="" className="rounded-full h-8 w-8 sm:h-9 sm:w-9 bg-secondary"/>
             </Link>
           </div>
         </div>

@@ -3,10 +3,10 @@ import { backendUrl } from "../utils";
 export const getServerSideHomePosts = async (userId: string,token:string|null) => {
   try {
     
-    const timestamp = new Date().getTime(); 
     
-    const postsResponse = await fetch(`${backendUrl}homePosts/${userId}?timestamp=${timestamp}`,{
-      cache:"no-store",
+    
+    const postsResponse = await fetch(`${backendUrl}homePosts/${userId}`,{
+      cache:"default",
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

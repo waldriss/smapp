@@ -33,7 +33,7 @@ export const useGetHomePosts = (userId: string, initialPosts: IPost[],getToken: 
       lastpage.length === 0 ? undefined : pages.length + 1,
     initialPageParam: 1,
     initialData: {
-      pages: initialPosts,
+      pages: [initialPosts],
       pageParams: [1],
     },
     refetchOnWindowFocus: false,
@@ -58,7 +58,7 @@ export const useGetExplorePosts = (
     },
     initialPageParam: 1,
     initialData: {
-      pages: initialPosts,
+      pages: [initialPosts],
       pageParams: [1],
     },
     refetchOnMount: true,

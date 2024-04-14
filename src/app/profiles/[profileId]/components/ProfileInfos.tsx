@@ -29,7 +29,7 @@ const ProfileInfos = ({
       <p className="text-2xl sm:text-3xl font-semibold font-sans-serif2 leading-none pb-1 text-whiteShade">
         {name}
       </p>
-      <p className="text-base text-muted-foreground font-sans-serif2 font-semibold ">@{userName}</p>
+      <p className="text-base text-muted-foreground font-sans-serif2  ">@{userName}</p>
 
       <p className="pt-4 font-sans-serif2 text-whiteShade">
         {bio}

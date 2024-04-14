@@ -45,7 +45,7 @@ const ProfileHeader = ({
     (followRequest) => followRequest.state === "pending"
   );
   return (
-    <div className="w-full bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2 h-60 md:h-40 relative mb-5 sm:mb-8">
+    <div className="w-full bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2 h-52 sm:h-60 md:h-40 relative mb-5 sm:mb-8">
       <div className="absolute rounded-full circle w-40 h-40  sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-solid border-backgroundgrad2 border-[12px] bg-white bottom-0 translate-y-1/2 left-2 sm:left-10">
         <Image
           alt="OM"

@@ -145,7 +145,7 @@ export const getExplorePosts = async (
     console.log(postsResponse);
     const postsData = await postsResponse.json();
 
-    return postsData.posts;
+    return postsData?.posts ? postsData.posts : [];
   } catch (error) {
     console.log(error);
   }

@@ -3,9 +3,10 @@ import { HomeIcon, Users } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { UseAnimateHomeHeader } from "@/lib/store/store";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
+import { infiniteQueryData, IPost } from "@/lib/types/Post";
 
 const HomeHeader = ({userId}:{userId:string}) => {
   const { isAnimateHomeHeader, setisAnimateHomeHeader } =
@@ -15,18 +16,22 @@ const HomeHeader = ({userId}:{userId:string}) => {
   };
 
   const MotionHomeIcon = motion(HomeIcon);
+  const pathname=usePathname();
+ useEffect(()=>setisAnimateHomeHeader(false),[pathname])
 
 const queryClient=useQueryClient()
 const refresh=()=>{
+  console.log("hello");
   const scrollablediv=document.getElementById("scrollablediv");
   if(scrollablediv) scrollablediv.scrollTop=0;
-
+  
   queryClient.setQueriesData(
     { queryKey: [QUERY_KEYS.GET_HOME_POSTS,userId] },
-    (data: any) => {
+    (data:undefined|infiniteQueryData<IPost>) => {
+      console.log(data?.pages[1]);
       return {
-        pages: data.pages.slice(0, 1),
-        pageParams: data.pageParams.slice(0, 1),
+        pages:data?.pages?data.pages.slice(0, 1):[],
+        pageParams:data?.pageParams?data.pageParams.slice(0, 1):[],
       };
     }
   );

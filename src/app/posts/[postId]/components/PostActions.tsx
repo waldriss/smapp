@@ -13,13 +13,13 @@ const PostActions = ({
   userId,
   likers,
   sharers,
-  setlikesNumber
+
 }: {
   postId: number;
   userId?: string | null;
   likers:Liker[],
   sharers:Sharer[],
-  setlikesNumber:any
+
 }) => {
   const submitRef = useRef<HTMLButtonElement>(null);
   const handleClick = () => {
@@ -35,7 +35,7 @@ const PostActions = ({
 
       <div className=" gap-x-2 relative flex justify-start items-center pt-2">
         <div className="flex justify-start items-center ">
-          {<AnimatedHeart setlikesNumber={setlikesNumber} postId={postId} likers={likers} subclass='!w-[52px] mb-1'/>}
+          {<AnimatedHeart  postId={postId} likers={likers} subclass='!w-[52px] mb-1'/>}
         </div>
         <Share className="w-8 h-8 text-whiteShade" sharers={sharers} postId={postId}/>
        

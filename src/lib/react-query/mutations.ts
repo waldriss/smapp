@@ -22,15 +22,29 @@ import {
 import { seeNotification } from "../api/NotificationsRequests";
 import { registerUserInDB } from "../api/AuthRequests";
 import { GetToken } from "../types/global";
+import {
+  infiniteQueryData,
+  IPost,
+  TExplorePost,
+  TPostDetails,
+} from "../types/Post";
+import {
+  addLikerToExplorePost,
+  addLikerToOnePost,
+  addLikerToPost,
+  removeLikerFromExplorePost,
+  removeLikerFromOnePost,
+  removeLikerFromPost,
+} from "../utils";
 
 //------------Post Mutations
-export const useCreatePost = (userId: string,getToken: GetToken) => {
+export const useCreatePost = (userId: string, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (newPost: NewPost) => createPost(newPost,getToken),
+    mutationFn: (newPost: NewPost) => createPost(newPost, getToken),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,userId],
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
@@ -42,13 +56,18 @@ export const useCreatePost = (userId: string,getToken: GetToken) => {
   });
 };
 
-export const useUpdatePost = (postId: number | undefined, userId: string,getToken: GetToken) => {
+export const useUpdatePost = (
+  postId: number | undefined,
+  userId: string,
+  getToken: GetToken
+) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (updatedPost: UpdatedPost) => updatePost(updatedPost, postId,getToken),
+    mutationFn: (updatedPost: UpdatedPost) =>
+      updatePost(updatedPost, postId, getToken),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,userId],
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
@@ -60,14 +79,50 @@ export const useUpdatePost = (postId: number | undefined, userId: string,getToke
   });
 };
 
-export const useLikePost = (userId: string,getToken: GetToken) => {
+export const useLikePost = (userId: string, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
-      likePost(postId, userId,getToken),
+      likePost(postId, userId, getToken),
+    onMutate: ({ postId, userId }) => {
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<IPost>) => {
+          if (data != undefined) {
+            const newData = addLikerToPost(data, postId, userId);
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<TExplorePost>) => {
+          if (data != undefined) {
+            const newData = addLikerToExplorePost(data, postId, userId);
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_POST, postId.toString()] },
+        (data: undefined | TPostDetails) => {
+          if (data != undefined) {
+            const newData = addLikerToOnePost(data, userId);
+
+            return newData;
+          }
+        }
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,userId]
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
@@ -76,14 +131,52 @@ export const useLikePost = (userId: string,getToken: GetToken) => {
   });
 };
 
-export const useDisLikePost = (userId: string,getToken: GetToken) => {
+export const useDisLikePost = (userId: string, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
-      dislikePost(postId, userId,getToken),
+      dislikePost(postId, userId, getToken),
+    onMutate: ({ postId, userId }) => {
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<IPost>) => {
+          if (data != undefined) {
+            const newData = removeLikerFromPost(data, postId, userId);
+
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<TExplorePost>) => {
+          if (data != undefined) {
+            const newData = removeLikerFromExplorePost(data, postId, userId);
+
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_POST, postId.toString()] },
+        (data: undefined | TPostDetails) => {
+          if (data != undefined) {
+            const newData = removeLikerFromOnePost(data, userId);
+
+            return newData;
+          }
+        }
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,userId]
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
@@ -92,14 +185,14 @@ export const useDisLikePost = (userId: string,getToken: GetToken) => {
   });
 };
 
-export const useSharePost = (userId: string,getToken: GetToken) => {
+export const useSharePost = (userId: string, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
-      sharePost(postId, userId,getToken),
+      sharePost(postId, userId, getToken),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,userId],
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
@@ -111,14 +204,14 @@ export const useSharePost = (userId: string,getToken: GetToken) => {
   });
 };
 
-export const useUnsharePost = (userId: string,getToken: GetToken) => {
+export const useUnsharePost = (userId: string, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
-      unsharePost(postId, userId,getToken),
+      unsharePost(postId, userId, getToken),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,userId],
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
@@ -130,7 +223,7 @@ export const useUnsharePost = (userId: string,getToken: GetToken) => {
   });
 };
 
-export const useCommentPost = (postId: number,getToken: GetToken) => {
+export const useCommentPost = (postId: number, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
@@ -141,7 +234,7 @@ export const useCommentPost = (postId: number,getToken: GetToken) => {
       postId: number;
       userId: number;
       body: string;
-    }) => commentPost(postId, userId, body,getToken),
+    }) => commentPost(postId, userId, body, getToken),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_POST, postId.toString()],
@@ -156,12 +249,17 @@ export const useCommentPost = (postId: number,getToken: GetToken) => {
   });
 };
 
-export const useDeleteComment = (postId: number,getToken: GetToken) => {
+export const useDeleteComment = (postId: number, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ commentId,userId }: { commentId: number,userId:string}) =>
-      deleteComment(commentId,getToken),
-    onSuccess: (data,variables) => {
+    mutationFn: ({
+      commentId,
+      userId,
+    }: {
+      commentId: number;
+      userId: string;
+    }) => deleteComment(commentId, getToken),
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_POST, postId.toString()],
       });
@@ -169,7 +267,7 @@ export const useDeleteComment = (postId: number,getToken: GetToken) => {
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, variables.userId],
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,variables.userId],
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, variables.userId],
       });
     },
   });
@@ -178,8 +276,9 @@ export const useDeleteComment = (postId: number,getToken: GetToken) => {
 export const useDeletePost = (getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ postId,userId }: { postId: number,userId:string }) => deletePost(postId,getToken),
-    onSuccess: (data,variables) => {
+    mutationFn: ({ postId, userId }: { postId: number; userId: string }) =>
+      deletePost(postId, getToken),
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_POST, variables.postId.toString()],
       });
@@ -187,12 +286,8 @@ export const useDeletePost = (getToken: GetToken) => {
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, variables.userId],
       });
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS,variables.userId],
+        queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, variables.userId],
       });
-
-
-
-      
     },
   });
 };
@@ -201,37 +296,35 @@ export const useDeletePost = (getToken: GetToken) => {
 export const useRegisterInDB = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (userToRegister: UserToRegister) => registerUserInDB(userToRegister),
-    onSuccess: ({data,variables}) => {
-     /* queryClient.invalidateQueries({
+    mutationFn: (userToRegister: UserToRegister) =>
+      registerUserInDB(userToRegister),
+    onSuccess: ({ data, variables }) => {
+      /* queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER,id.toString()]
       });
       
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_AUTHENTICATED_USER,id.toString()]
       });*/
-  
-      
     },
   });
 };
 
 //------------User Mutations
 
-export const useUpdateUser = (id: number,getToken: GetToken) => {
+export const useUpdateUser = (id: number, getToken: GetToken) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (updatedUser: UpdatedUser) => updateUser(updatedUser, id,getToken),
+    mutationFn: (updatedUser: UpdatedUser) =>
+      updateUser(updatedUser, id, getToken),
     onSuccess: () => {
-      
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_USER,id.toString()]
+        queryKey: [QUERY_KEYS.GET_USER, id.toString()],
       });
-      
+
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_AUTHENTICATED_USER,id.toString()]
+        queryKey: [QUERY_KEYS.GET_AUTHENTICATED_USER, id.toString()],
       });
-      
     },
   });
 };
@@ -245,7 +338,7 @@ export const useFollow = (getToken: GetToken) => {
     }: {
       followerId: number;
       followedId: number;
-    }) => follow(followerId, followedId,getToken),
+    }) => follow(followerId, followedId, getToken),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER, variables.followedId.toString()],
@@ -263,7 +356,7 @@ export const useAcceptFollow = (getToken: GetToken) => {
     }: {
       followerId: number;
       followedId: number;
-    }) => acceptFollow(followerId, followedId,getToken),
+    }) => acceptFollow(followerId, followedId, getToken),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER, variables.followerId.toString()],
@@ -284,7 +377,7 @@ export const useDeleteFollow = (getToken: GetToken) => {
     }: {
       followerId: number;
       followedId: number;
-    }) => deleteFollow(followerId, followedId,getToken),
+    }) => deleteFollow(followerId, followedId, getToken),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER, variables.followerId.toString()],
@@ -307,9 +400,8 @@ export const useSeeNotification = (getToken: GetToken) => {
     }: {
       notificationId: number;
       userId: string;
-    }) => seeNotification(notificationId,userId,getToken),
+    }) => seeNotification(notificationId, userId, getToken),
     onSuccess: (data, variables) => {
-      
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_NOTIFICATIONS, variables.userId],
       });

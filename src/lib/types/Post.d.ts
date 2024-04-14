@@ -86,3 +86,11 @@ export interface ExplorePostsLikes{
 interface HomePostsNumberOfComments{
     commented_posts:number
 }
+
+
+
+
+export interface infiniteQueryData<T> {
+    pages: T[][],
+    pageParams: number[],
+}

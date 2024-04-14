@@ -1,27 +1,25 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import io from 'socket.io-client';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import io from "socket.io-client";
 import { TNotification } from "./types/Notification";
+import { infiniteQueryData, IPost, TExplorePost, TPostDetails } from "./types/Post";
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-
-//export const socket = io("http://localhost:5000");
-export const socket = io("https://sm-backend-i6qz.onrender.com/");
-
-
+export const socket = io("http://localhost:5000");
+//export const socket = io("https://sm-backend-i6qz.onrender.com/");
 
 export function generateUniqueId() {
   const timestamp = Date.now().toString(36); // Convert timestamp to base 36 string
   const randomStr = Math.random().toString(36).substring(2, 8);
-  console.log(randomStr) // Generate random string
+  console.log(randomStr); // Generate random string
   return timestamp + randomStr; // Concatenate timestamp and random string
 }
-//export const backendUrl="http://localhost:5000/"
-export const backendUrl="https://sm-backend-i6qz.onrender.com/"
+export const backendUrl = "http://localhost:5000/";
+//export const backendUrl="https://sm-backend-i6qz.onrender.com/"
 
-export const NotificationBody = (notification:TNotification) => {
+export const NotificationBody = (notification: TNotification) => {
   switch (notification.type) {
     case "like":
       return `${notification.like?.liker.name} liked one of your posts.`;
@@ -35,7 +33,7 @@ export const NotificationBody = (notification:TNotification) => {
       return "Unknown notification action.";
   }
 };
-export const notificationAvatarsrc = (notification:TNotification) => {
+export const notificationAvatarsrc = (notification: TNotification) => {
   switch (notification.type) {
     case "like":
       return `${notification.like?.liker.userImage}`;
@@ -48,7 +46,7 @@ export const notificationAvatarsrc = (notification:TNotification) => {
   }
 };
 
-export const notificationAvatarFallBack = (notification:TNotification) => {
+export const notificationAvatarFallBack = (notification: TNotification) => {
   switch (notification.type) {
     case "like":
       return `${notification.like?.liker.name.substring(0, 2)} `;
@@ -60,7 +58,7 @@ export const notificationAvatarFallBack = (notification:TNotification) => {
       return `${notification.followRequest?.followed.name.substring(0, 2)}`;
   }
 };
-export const NotificationLink = (notification:TNotification) => {
+export const NotificationLink = (notification: TNotification) => {
   switch (notification.type) {
     case "like":
       return `/posts/${notification.like?.liked_postId}`;
@@ -74,7 +72,6 @@ export const NotificationLink = (notification:TNotification) => {
       return "";
   }
 };
-
 
 export function calculateTimeElapsed(createdAt: Date) {
   const currentTime = new Date();
@@ -97,6 +94,113 @@ export function calculateTimeElapsed(createdAt: Date) {
   }
 }
 
+export function addLikerToPost(
+  data: infiniteQueryData<IPost>,
+  postId: number,
+  likerId: number
+) {
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              liked_posts: [...post.liked_posts, { likerId }],
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+export function removeLikerFromPost(
+  data: infiniteQueryData<IPost>,
+  postId: number,
+  likerId: number
+) {
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              liked_posts: post.liked_posts.filter(
+                (liker) => liker.likerId !== likerId
+              ),
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
 
 
+export function addLikerToExplorePost(
+  data: infiniteQueryData<TExplorePost>,
+  postId: number,
+  likerId: number
+) {
+  console.log(data);
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              liked_posts: [...post.liked_posts, { likerId }],
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+export function removeLikerFromExplorePost(
+  data: infiniteQueryData<TExplorePost>,
+  postId: number,
+  likerId: number
+) {
+  console.log(data);
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              liked_posts: post.liked_posts.filter(
+                (liker) => liker.likerId !== likerId
+              ),
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+
+
+export function addLikerToOnePost(post: TPostDetails, likerId: number): TPostDetails {
+
+  return {
+    ...post,
+    liked_posts: [...post.liked_posts, { likerId }],
+  };
+}
+
+
+export function removeLikerFromOnePost(post: TPostDetails, likerId: number): TPostDetails {
+
+  return {
+    ...post,
+    liked_posts: post.liked_posts.filter(liker => liker.likerId !== likerId),
+  };
+}
 

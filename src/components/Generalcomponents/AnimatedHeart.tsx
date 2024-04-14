@@ -1,53 +1,53 @@
 import { useDisLikePost, useLikePost } from "@/lib/react-query/mutations";
 import { UseToken } from "@/lib/store/store";
-import { Liker } from "@/lib/types/Post";
+import { infiniteQueryData, IPost, Liker } from "@/lib/types/Post";
 import { useAuth, useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
+import LoadingSvg from "./LoadingSvg";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
+import { addLikerToPost } from "@/lib/utils";
 
 const AnimatedHeart = ({
   subclass,
   likers,
   postId,
-  setlikesNumber,
+
 }: {
   subclass?: string;
   likers: Liker[];
   postId: number;
-  setlikesNumber:any
 }) => {
 
   const { user } = useUser();
   const { getToken } = useAuth();
  
-
+  const queryClient=useQueryClient()
   const checkIsLiked = likers.some(
     (liker) => liker.likerId.toString() === user?.externalId
   );
 
-  const [isLiked, setisLiked] = useState(checkIsLiked);
+
+  
 
   const { mutateAsync: likePost } = useLikePost(user?.externalId?user.externalId:"",getToken);
   const { mutateAsync: dislikePost } = useDisLikePost(user?.externalId?user.externalId:"",getToken);
-  useEffect(() => {
-    if (checkIsLiked != isLiked) {
-      setisLiked(checkIsLiked);
-    }
-  }, [checkIsLiked]);
+
 
   const handleClick = async (e: any) => {
     e.preventDefault();
     if (user?.externalId) {
-      if (!isLiked) {
-        setisLiked(true);
-        setlikesNumber((prev:any)=>prev+1)
+      if (!checkIsLiked) {
+       
+
+       
 
         await likePost({
           postId: postId,
           userId: parseInt(user.externalId),
         });
       } else {
-        setisLiked(false);
-        setlikesNumber((prev:any)=>prev-1)
+      
         await dislikePost({
           postId: postId,
           userId: parseInt(user.externalId),
@@ -56,12 +56,13 @@ const AnimatedHeart = ({
     }
   };
 
-  return (
+  return (checkIsLiked===null?
+    <LoadingSvg className="w-10 h-10"/>:
     <div className="relative ">
       <input
         type="checkbox"
         id="checkbox"
-        checked={isLiked}
+        checked={checkIsLiked}
         readOnly
         style={{ pointerEvents: "none" }}
       />
@@ -84,7 +85,7 @@ const AnimatedHeart = ({
               id="heart"
               fill="none"
               className={`stroke-[3px] ${
-                !isLiked ? "stroke-whiteShade " : "stroke-primary"
+                !checkIsLiked ? "stroke-whiteShade " : "stroke-primary"
               }`}
             />
             <circle

@@ -22,7 +22,7 @@ const PostInfos = ({
     unknown
   >;
 }) => {
-  const [likesNumber,setlikesNumber]=useState(post.liked_posts.length);
+ 
   return (
     <section className=" relative w-full xl:w-1/2  bggradientPostInfos pt-5  px-3 sm:px-7 pb-3 xl:pb-1">
       <div className="flex items-center space-x-2 font-sans-serif2    ">
@@ -48,10 +48,8 @@ const PostInfos = ({
 
       <div className="pt-6 font-sans-serif2  flex justify-between text-base text-whiteShade font-normal ">
         <div>
-          Liked by <span className="font-semibold">{likesNumber} </span> and{" "}
-          <span className="font-semibold">
-            {likesNumber > 2 ? likesNumber - 1 + " more" : ""}{" "}
-          </span>
+          Liked by <span className="font-semibold">{post.liked_posts.length} </span> users.
+          
         </div>
       </div>
       <p className="font-normal text-base text-whiteShade pt-4 min-h-[100px]">
@@ -59,7 +57,7 @@ const PostInfos = ({
         {post.caption}
       </p>
 
-      <PostCommentsAndActions setlikesNumber={setlikesNumber} deletePost={deletePost} post={post} />
+      <PostCommentsAndActions  deletePost={deletePost} post={post} />
     </section>
   );
 };

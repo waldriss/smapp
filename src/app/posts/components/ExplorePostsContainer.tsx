@@ -47,8 +47,10 @@ const ExplorePostsContainer = ({
         ],
       },
       (data: any) => {
+       
+       console.log(data);
         return {
-          pages: posts,
+          pages: [posts],
           pageParams: [1],
         };
       }
@@ -63,7 +65,7 @@ const ExplorePostsContainer = ({
           {" "}
           Posts
         </h2>
-        <SelectExplorePosts />
+        {/*<SelectExplorePosts />*/}
       </div>
       <section className="grid  gap-x-2 gap-y-2 py-10 justify-items-center max-w-full grid-cols-1 sm:grid-cols-3  md:grid-cols-2 lg:grid-cols-3 mx-auto">
         {scrollPosts.map((scrollPost: TExplorePost) => (

@@ -11,7 +11,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { useAuth } from "@clerk/nextjs";
 
+
 const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:string|null }) => {
+  
   const { getToken } = useAuth();
   const { data, hasNextPage, fetchNextPage, isLoading,isPending } = useGetHomePosts(
     userId,
@@ -20,8 +22,8 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
   );
   
   const scrollPosts: IPost[] = [].concat(...data.pages);
-  console.log(posts);
-  
+ 
+  console.log(data);
 
   const scrollableParentRef = useRef<HTMLDivElement>(null);
   const { setisAnimateHomeHeader } = UseAnimateHomeHeader();
@@ -64,9 +66,9 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
       className="relative max-h-screen md:h-screen w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[65%] xl:w-[65%] mt-20 md:mt-0 md:pt-28  overflow-y-scroll customScrollBar_dark "
     >
       {/*<h1  className=" pl-7 pt-8 text-4xl font-bold w-full text-whiteShade "> Home Feed</h1>*/}
-
+      {/*<HomePostInfos open={false}/>*/}
       <InfiniteScroll
-        className="flex gap-y-16 pt-14 pl-[18px] flex-col justify-start items-center w-full"
+        className="flex gap-y-16 pb-36 md:pb-14 pt-14 pl-[18px] flex-col justify-start items-center w-full"
         dataLength={scrollPosts.length}
         next={() => {
           fetchNextPage();

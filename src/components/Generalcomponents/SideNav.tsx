@@ -9,11 +9,11 @@ import {
 import { Nav } from "./Nav";
 import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
-import { Image, Bookmark, Home, Send, ImagePlus, LogOut } from "lucide-react";
+import { Image as Image_icon, Bookmark, Home, Send, ImagePlus, LogOut, Aperture } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth, useClerk, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import NotificationMenu from "./NotificationMenu";
@@ -23,6 +23,7 @@ import { useGetAuthenticatedUser } from "@/lib/react-query/queries";
 import { Button } from "../ui/button";
 import { useMediaQuery } from "@/lib/hooks/mediaqueryhook";
 import { UseAuthenticatedUser, UseToken } from "@/lib/store/store";
+import LoadingSvg from "./LoadingSvg";
 
 interface SideNavProps {
   defaultLayout: number[] | undefined;
@@ -45,6 +46,7 @@ const SideNav = ({
   console.log(navCollapsedSize);*/
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const pathname = usePathname();
+  const router=useRouter()
 
   const { user } = useUser();
   const { getToken } = useAuth();
@@ -80,6 +82,7 @@ const SideNav = ({
   const logout = () => {
     signOut();
     setauthenticatedUser(undefined);
+    router.push("/auth")
   };
 
   return (
@@ -114,7 +117,11 @@ const SideNav = ({
                 isCollapsed ? "items-center" : "px-2"
               )}
             >
-              <h2 className="text-3xl font-bold text-whiteShade"> logo </h2>
+              <Link href={"/"} className={`${isCollapsed&&"justify-center"} items-center  w-full flex gap-x-2`}>
+                <Aperture className="h-12 w-12 text-primary stroke-[1.5px]"/>
+            {!isCollapsed&&  <h2 className="text-3xl font-sans-serif2 font-semibold text-primary"> Imgram </h2>}
+              </Link>
+            
               <div
                 className={` flex flex-col gap-y-4 flex-wrap items-center justify-center w-full `}
               >
@@ -146,12 +153,14 @@ const SideNav = ({
                   </Link>
                 </div>
 
-                {user?.externalId&&
+                {user?.externalId?
                   <NotificationMenu
                     token={gobalToken}
                     InitialNotifications={notifications.length==0?undefined:notifications}
                     userId={user?.externalId}
                   />
+                  :
+                  <LoadingSvg className="h-10 w-10"/>
                 }
               </div>
             </div>
@@ -170,7 +179,7 @@ const SideNav = ({
                 {
                   title: "explore",
                   label: "",
-                  icon: Image,
+                  icon: Image_icon,
                   variant: "default",
                   active: pathname == "/posts",
                   url: "/posts",

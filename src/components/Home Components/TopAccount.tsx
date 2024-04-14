@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { TopUser } from '@/lib/types/user'
 
 const TopAccount = ({user}:{user:TopUser}) => {
+  
   return (
     <section className='bg-bgShade1  lg:w-44 px-2  xl:min-w-48 pt-6 pb-6 rounded-3xl border border-1px border-borderPrimary'>
     <div className="flex flex-col gap-y-5  items-center justify-center space-x-2">

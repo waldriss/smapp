@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useAuth, useClerk, useSignIn, useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { generateUniqueId } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
@@ -45,6 +45,8 @@ const SigninForm = ({
 
   const { signIn, setActive } = useSignIn();
   const {user}=useUser();
+  const pathname=usePathname();
+ React.useEffect(()=>{if(user){  router.push("/");}},[user])
  const queryClient=useQueryClient();
   const toastContent = (message: string, id: string) => (
     <div className="w-full">

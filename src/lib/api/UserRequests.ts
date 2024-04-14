@@ -64,7 +64,7 @@ export const getUser = async (userId: string,getToken: GetToken) => {
 export const getAuth = async (userId: string|undefined|null,getToken:GetToken) => {
   try {
     
-    const token=await getToken;
+    const token=await getToken();
  
     
     const userResponse = await fetch(`${backendUrl}authenticatedUser/${userId}`, {
@@ -90,7 +90,7 @@ export const getAuth = async (userId: string|undefined|null,getToken:GetToken) =
 };
 export const getTopUsers = async (userId: string,getToken: GetToken,) => {
   try {
-    const token=await getToken;
+    const token=await getToken();
     const usersResponse = await fetch(`${backendUrl}users/${userId}`,{
       headers: {
         'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export const getTopUsers = async (userId: string,getToken: GetToken,) => {
 
 export const getExploreUsers = async (page: number, search: string,getToken: GetToken,userId?:string) => {
   try {
-    const token=await getToken;
+    const token=await getToken();
     const usersResponse = await fetch(`${backendUrl}exploreUsers?page=${page}&search=${search}&userId=${userId}`,{
       headers: {
         'Content-Type': 'application/json',
