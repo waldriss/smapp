@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { buttonVariants } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { TopUser } from '@/lib/types/user'
+import Image from 'next/image'
+import profilesvg from "@public/svgs/profile.svg"
 
 const TopAccount = ({user}:{user:TopUser}) => {
   
@@ -12,7 +14,7 @@ const TopAccount = ({user}:{user:TopUser}) => {
     <div className="flex flex-col gap-y-5  items-center justify-center space-x-2">
         <Avatar className='w-14 h-14 border-borderPrimary border-3 border-solid'>
         <AvatarImage className=' ' src={user.userImage} />
-        <AvatarFallback>{user.name.substring(0, 2)}</AvatarFallback>
+        <AvatarFallback><Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/></AvatarFallback>
         </Avatar>
         
         <div className='flex flex-col font-sans justify-center items-center '>

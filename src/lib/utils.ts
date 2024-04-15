@@ -7,8 +7,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const socket = io("http://localhost:5000");
-//export const socket = io("https://sm-backend-i6qz.onrender.com/");
+//export const socket = io("http://localhost:5000");
+export const socket = io("https://sm-backend-i6qz.onrender.com/");
 
 export function generateUniqueId() {
   const timestamp = Date.now().toString(36); // Convert timestamp to base 36 string
@@ -16,8 +16,8 @@ export function generateUniqueId() {
   console.log(randomStr); // Generate random string
   return timestamp + randomStr; // Concatenate timestamp and random string
 }
-export const backendUrl = "http://localhost:5000/";
-//export const backendUrl="https://sm-backend-i6qz.onrender.com/"
+//export const backendUrl = "http://localhost:5000/";
+export const backendUrl="https://sm-backend-i6qz.onrender.com/"
 
 export const NotificationBody = (notification: TNotification) => {
   switch (notification.type) {
@@ -94,6 +94,8 @@ export function calculateTimeElapsed(createdAt: Date) {
   }
 }
 
+
+//-------------LIKES OPTIMISTIC UPDATES FUNCTION
 export function addLikerToPost(
   data: infiniteQueryData<IPost>,
   postId: number,
@@ -144,7 +146,7 @@ export function addLikerToExplorePost(
   postId: number,
   likerId: number
 ) {
-  console.log(data);
+
   const newData = {
     ...data,
     pages: data.pages.map((page) =>
@@ -166,7 +168,7 @@ export function removeLikerFromExplorePost(
   postId: number,
   likerId: number
 ) {
-  console.log(data);
+ 
   const newData = {
     ...data,
     pages: data.pages.map((page) =>
@@ -201,6 +203,121 @@ export function removeLikerFromOnePost(post: TPostDetails, likerId: number): TPo
   return {
     ...post,
     liked_posts: post.liked_posts.filter(liker => liker.likerId !== likerId),
+  };
+}
+
+
+
+
+//-------------Shares OPTIMISTIC UPDATES FUNCTION
+
+export function addSharerToPost(
+  data: infiniteQueryData<IPost>,
+  postId: number,
+  sharerId: number
+) {
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              shared_posts: [...post.shared_posts, { sharerId }],
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+export function removeSharerFromPost(
+  data: infiniteQueryData<IPost>,
+  postId: number,
+  sharerId: number
+) {
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              shared_posts: post.shared_posts.filter(
+                (sharer) => sharer.sharerId !== sharerId
+              ),
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+
+export function addSharerToExplorePost(
+  data: infiniteQueryData<TExplorePost>,
+  postId: number,
+  sharerId: number
+) {
+
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              shared_posts: [...post.shared_posts, { sharerId }],
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+export function removeSharerFromExplorePost(
+  data: infiniteQueryData<TExplorePost>,
+  postId: number,
+  sharerId: number
+) {
+ 
+  const newData = {
+    ...data,
+    pages: data.pages.map((page) =>
+      page.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              shared_posts: post.shared_posts.filter(
+                (sharer) => sharer.sharerId !== sharerId
+              ),
+            }
+          : post
+      )
+    ),
+  };
+  return newData;
+}
+
+
+
+export function addSharerToOnePost(post: TPostDetails, sharerId: number): TPostDetails {
+
+  return {
+    ...post,
+    shared_posts: [...post.shared_posts, { sharerId }],
+  };
+}
+
+
+export function removeSharerFromOnePost(post: TPostDetails, sharerId: number): TPostDetails {
+
+  return {
+    ...post,
+    shared_posts: post.shared_posts.filter(sharer => sharer.sharerId !== sharerId),
   };
 }
 

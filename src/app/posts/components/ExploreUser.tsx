@@ -3,7 +3,9 @@ import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import profilesvg from "@public/svgs/profile.svg"
 import Link from 'next/link';
+import Image from 'next/image';
 const ExploreUser = ({exploreUser}:{exploreUser:TExploreUser}) => {
   return (
     <>
@@ -15,7 +17,7 @@ const ExploreUser = ({exploreUser}:{exploreUser:TExploreUser}) => {
           <Avatar className="w-12 h-12">
             <AvatarImage src={exploreUser.userImage} />
             <AvatarFallback className="text-black">
-              {exploreUser.name.substring(0, 2)}
+            <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/>
             </AvatarFallback>
           </Avatar>
 

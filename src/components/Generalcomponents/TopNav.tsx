@@ -5,7 +5,7 @@ import { AuthenticatedUser } from "@/lib/types/user";
 import { Button } from "../ui/button";
 import { Aperture, LogOut } from "lucide-react";
 import { useClerk } from "@clerk/nextjs";
-import { UseAuthenticatedUser, UseToken } from "@/lib/store/store";
+import { UseAuthenticatedUser } from "@/lib/store/store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,7 @@ export const TopNav = ({
 }: {
   notifications: TNotification[];
 }) => {
-  const { token } = UseToken();
+ 
   const { authenticatedUser, setauthenticatedUser } = UseAuthenticatedUser();
   const router=useRouter()
   const { signOut } = useClerk();
@@ -36,7 +36,7 @@ export const TopNav = ({
       <div className="flex items-center gap-x-8">
         {authenticatedUser && (
           <NotificationMenu
-            token={token}
+            
             InitialNotifications={
               notifications.length == 0 ? undefined : notifications
             }

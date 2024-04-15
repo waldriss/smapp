@@ -16,7 +16,8 @@ import {
 import { useCommentPost } from "@/lib/react-query/mutations";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import { useAuth } from "@clerk/nextjs";
-
+import Image from "next/image";
+import profilesvg from "@public/svgs/profile.svg"
 const formSchema = z.object({
   body: z.string(),
 });
@@ -54,7 +55,7 @@ const CommentForm = ({
     <div className="flex items-center space-x-2 pt-4   ">
       <Avatar className="w-12 h-12">
         <AvatarImage src={authenticatedUser?.userImage} />
-        <AvatarFallback>{authenticatedUser?.name.substring(0, 2)}</AvatarFallback>
+        <AvatarFallback> <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/></AvatarFallback>
       </Avatar>
 
       <Form {...form}>

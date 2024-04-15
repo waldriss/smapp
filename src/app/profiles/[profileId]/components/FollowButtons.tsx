@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useDeleteFollow, useFollow } from "@/lib/react-query/mutations";
-import { UseToken } from "@/lib/store/store";
+
 import { FollowedRequest } from "@/lib/types/user";
 import { useAuth } from "@clerk/nextjs";
 import { UserRoundMinus, UserRoundPlus, UserRoundX } from "lucide-react";

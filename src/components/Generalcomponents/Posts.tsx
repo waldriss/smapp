@@ -23,7 +23,7 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
   
   const scrollPosts: IPost[] = [].concat(...data.pages);
  
-  console.log(data);
+ 
 
   const scrollableParentRef = useRef<HTMLDivElement>(null);
   const { setisAnimateHomeHeader } = UseAnimateHomeHeader();

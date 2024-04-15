@@ -5,13 +5,15 @@ import { useDeleteComment } from "@/lib/react-query/mutations";
 import { TComment } from "@/lib/types/Post";
 import { useAuth } from "@clerk/nextjs";
 import { X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-
+import profilesvg from "@public/svgs/profile.svg"
 const Comment = ({
-  token,
+
   comment,
   userId,
-}: {token:string|null
+}: {
   comment: TComment;
   userId?: string | null;
 }) => {
@@ -27,22 +29,24 @@ const Comment = ({
   return (
     <section className=" font-sans-serif2 relative border-solid border-1 border-[#191b24] rounded-2xl p-2">
       <div className="flex items-center space-x-2 relative">
+      <Link href={`/profiles/${comment.commenterId}`}>
         <Avatar className="w-9 h-9">
           <AvatarImage src={comment.commenter.userImage} />
           <AvatarFallback>
-            {comment.commenter.name.substring(0, 2)}
+          <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/>
           </AvatarFallback>
         </Avatar>
+        </Link>
        
 
-        <div>
+        <Link href={`/profiles/${comment.commenterId}`}>
           <p className="text-sm font-semibold text-whiteShade leading-none">
             {comment.commenter.name}
           </p>
           <p className="text-sm text-muted-foreground">
             @{comment.commenter.username}
           </p>
-        </div>
+        </Link>
       </div>
       
       <p className="text-whiteShade pt-2  px-2">{comment.body}</p>

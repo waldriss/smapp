@@ -32,9 +32,15 @@ import {
   addLikerToExplorePost,
   addLikerToOnePost,
   addLikerToPost,
+  addSharerToExplorePost,
+  addSharerToOnePost,
+  addSharerToPost,
   removeLikerFromExplorePost,
   removeLikerFromOnePost,
   removeLikerFromPost,
+  removeSharerFromExplorePost,
+  removeSharerFromOnePost,
+  removeSharerFromPost,
 } from "../utils";
 
 //------------Post Mutations
@@ -84,7 +90,8 @@ export const useLikePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       likePost(postId, userId, getToken),
-    onMutate: ({ postId, userId }) => {
+    onMutate: async({ postId, userId }) => {
+      
       queryClient.setQueriesData(
         { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
         (data: undefined | infiniteQueryData<IPost>) => {
@@ -120,12 +127,15 @@ export const useLikePost = (userId: string, getToken: GetToken) => {
         }
       );
     },
-    onSuccess: () => {
+    onSettled: (data,error,{postId}) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST, postId.toString()],
       });
     },
   });
@@ -136,7 +146,8 @@ export const useDisLikePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       dislikePost(postId, userId, getToken),
-    onMutate: ({ postId, userId }) => {
+    onMutate: async({ postId, userId }) => {
+   
       queryClient.setQueriesData(
         { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
         (data: undefined | infiniteQueryData<IPost>) => {
@@ -174,12 +185,16 @@ export const useDisLikePost = (userId: string, getToken: GetToken) => {
         }
       );
     },
-    onSuccess: () => {
+    onSettled: (data,error,{postId}) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST, postId.toString()],
       });
     },
   });
@@ -190,7 +205,46 @@ export const useSharePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       sharePost(postId, userId, getToken),
-    onSuccess: () => {
+    onMutate: async({ postId, userId }) => {
+   
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<IPost>) => {
+          if (data != undefined) {
+            const newData = addSharerToPost(data, postId, userId);
+
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<TExplorePost>) => {
+          if (data != undefined) {
+            const newData = addSharerToExplorePost(data, postId, userId);
+
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_POST, postId.toString()] },
+        (data: undefined | TPostDetails) => {
+          if (data != undefined) {
+            const newData = addSharerToOnePost(data, userId);
+
+            return newData;
+          }
+        }
+      );
+    },
+    onSettled: (data,error,{postId}) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
@@ -199,6 +253,9 @@ export const useSharePost = (userId: string, getToken: GetToken) => {
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER, userId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST, postId.toString()],
       });
     },
   });
@@ -209,7 +266,46 @@ export const useUnsharePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       unsharePost(postId, userId, getToken),
-    onSuccess: () => {
+    onMutate: async({ postId, userId }) => {
+   
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<IPost>) => {
+          if (data != undefined) {
+            const newData = removeSharerFromPost(data, postId, userId);
+
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId.toString()] },
+        (data: undefined | infiniteQueryData<TExplorePost>) => {
+          if (data != undefined) {
+            const newData = removeSharerFromExplorePost(data, postId, userId);
+
+            return {
+              pages: newData?.pages ? newData.pages : [],
+              pageParams: newData?.pageParams ? newData.pageParams : [],
+            };
+          }
+        }
+      );
+      queryClient.setQueriesData(
+        { queryKey: [QUERY_KEYS.GET_POST, postId.toString()] },
+        (data: undefined | TPostDetails) => {
+          if (data != undefined) {
+            const newData = removeSharerFromOnePost(data, userId);
+
+            return newData;
+          }
+        }
+      );
+    },
+    onSettled: (data,error,{postId}) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
@@ -218,6 +314,9 @@ export const useUnsharePost = (userId: string, getToken: GetToken) => {
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER, userId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST, postId.toString()],
       });
     },
   });

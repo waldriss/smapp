@@ -5,9 +5,10 @@ import { TNotification } from "@/lib/types/Notification";
 import { useRouter } from "next/navigation";
 import { useSeeNotification } from "@/lib/react-query/mutations";
 import { Button } from "../ui/button";
-import { calculateTimeElapsed, notificationAvatarFallBack, notificationAvatarsrc, NotificationBody, NotificationLink } from "@/lib/utils";
+import { calculateTimeElapsed, notificationAvatarsrc, NotificationBody, NotificationLink } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
-
+import Image from "next/image";
+import profilesvg from "@public/svgs/profile.svg"
 
 
 
@@ -16,13 +17,13 @@ const Notification = ({
   notification,
   hasNextPage,
   fetchNextPage,
-  token
+  
 }: {
   userId:string;
   notification: TNotification;
   hasNextPage: boolean;
   fetchNextPage: any;
-  token:string|null;
+
 }) => {
   const router = useRouter();
   const { getToken } = useAuth();
@@ -49,7 +50,7 @@ const Notification = ({
       >
         <Avatar className="w-12 h-12">
           <AvatarImage src={notificationAvatarsrc(notification)} />
-          <AvatarFallback>{notificationAvatarFallBack(notification)}</AvatarFallback>
+          <AvatarFallback>  <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/></AvatarFallback>
         </Avatar>
 
         <div className="w-full pr-2">

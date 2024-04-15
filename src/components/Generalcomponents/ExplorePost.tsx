@@ -7,7 +7,7 @@ import { TUserPost } from "@/lib/types/user";
 import Link from "next/link";
 import { TExplorePost } from "@/lib/types/Post";
 import Share from "./Share";
-
+import profilesvg from "@public/svgs/profile.svg"
 const ExplorePost = ({
   subclass,
   isprofilePage,
@@ -47,7 +47,7 @@ const ExplorePost = ({
           <div className="flex items-center space-x-2  ">
             <Avatar className="w-9 h-9">
               <AvatarImage src={explorePost.poster.userImage} />
-              <AvatarFallback>{explorePost.poster.name.substring(0, 2)}</AvatarFallback>
+              <AvatarFallback>  <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/></AvatarFallback>
             </Avatar>
 
             <div>

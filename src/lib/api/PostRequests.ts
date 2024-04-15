@@ -201,11 +201,13 @@ export const dislikePost = async (
     const responseData = await response.json();
 
     if (!response.ok) {
+      console.log("not ok");
       throw new Error(responseData.message); // Error message from the backend
     }
 
     return responseData;
   } catch (error) {
+    console.log(error);
     console.error("Error:", error);
   }
 };

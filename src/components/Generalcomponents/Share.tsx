@@ -5,7 +5,15 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import { BookmarkPlus } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-const Share = ({ sharers,postId,className }: { sharers: Sharer[],postId:number,className?:string }) => {
+const Share = ({
+  sharers,
+  postId,
+  className,
+}: {
+  sharers: Sharer[];
+  postId: number;
+  className?: string;
+}) => {
   const { user } = useUser();
 
   const { getToken } = useAuth();
@@ -13,38 +21,41 @@ const Share = ({ sharers,postId,className }: { sharers: Sharer[],postId:number,c
   const checkIsShared = sharers.some(
     (sharer) => sharer.sharerId.toString() === user?.externalId
   );
-  const [isShared, setisShared] = useState(checkIsShared);
 
-  const { mutateAsync: sharePost } = useSharePost(user?.externalId?user.externalId:"",getToken);
-  const { mutateAsync: unsharePost } = useUnsharePost(user?.externalId?user.externalId:"",getToken);
-
-  useEffect(() => {
-    if (checkIsShared != isShared) {
-        setisShared(checkIsShared);
-    }
-  }, [checkIsShared]);
+  const { mutateAsync: sharePost, isPending: isSharing } = useSharePost(
+    user?.externalId ? user.externalId : "",
+    getToken
+  );
+  const { mutateAsync: unsharePost, isPending: isUnsharing } = useUnsharePost(
+    user?.externalId ? user.externalId : "",
+    getToken
+  );
 
   const handleClick = async (e: any) => {
     e.preventDefault();
-    if (user?.externalId) {
-      if (!isShared) {
-        setisShared(true);
-
-        await sharePost({
-          postId: postId,
-          userId: parseInt(user.externalId),
-        });
-      } else {
-        setisShared(false);
-        await unsharePost({
-          postId: postId,
-          userId: parseInt(user.externalId),
-        });
+    if (!isSharing && !isUnsharing) {
+      if (user?.externalId) {
+        if (!checkIsShared) {
+          await sharePost({
+            postId: postId,
+            userId: parseInt(user.externalId),
+          });
+        } else {
+          await unsharePost({
+            postId: postId,
+            userId: parseInt(user.externalId),
+          });
+        }
       }
     }
   };
   return (
-    <BookmarkPlus onClick={handleClick} className={` ${className} ${isShared?'fill-primary stroke-primary':'stroke-whiteShade'} transform active:scale-75 transition-transform cursor-pointer `} />
+    <BookmarkPlus
+      onClick={handleClick}
+      className={` ${className} ${
+        checkIsShared ? "fill-primary stroke-primary" : "stroke-whiteShade"
+      } transform active:scale-75 transition-transform cursor-pointer `}
+    />
   );
 };
 

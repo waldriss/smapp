@@ -25,7 +25,7 @@ const ModalPostInfos = ({ children }: { children: React.ReactNode }) => {
     <Dialog open={open}>
      
         <DialogContent
-          className="min-w-[80%] h-auto px-0 !py-0 bg-transparent"
+          className="min-w-[90%] xl:min-w-[80%] h-auto px-0 !py-0 bg-transparent"
           onPointerDownOutside={close}
         >
           {children}

@@ -8,7 +8,7 @@ import { TNotification } from "@/lib/types/Notification";
 import { useGetNotifications } from "@/lib/react-query/queries";
 import {
   calculateTimeElapsed,
-  notificationAvatarFallBack,
+  
   notificationAvatarsrc,
   NotificationBody,
   NotificationLink,
@@ -18,20 +18,21 @@ import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { Separator } from "../ui/separator";
 import { toast } from "sonner";
-
+import profilesvg from "@public/svgs/profile.svg"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useRouter } from "next/navigation";
 import { useSeeNotification } from "@/lib/react-query/mutations";
 import { useAuth } from "@clerk/nextjs";
+import Image from "next/image";
 
 const NotificationMenu = ({
   InitialNotifications,
   userId,
-  token
+ 
 }: {
   InitialNotifications?: TNotification[];
   userId: string;
-  token:string|null
+
 }) => {
   
  
@@ -137,7 +138,7 @@ const NotificationMenu = ({
           <Avatar className="w-12 h-12">
             <AvatarImage src={notificationAvatarsrc(notification)} />
             <AvatarFallback>
-              {notificationAvatarFallBack(notification)}
+            <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/>
             </AvatarFallback>
           </Avatar>
 
@@ -194,7 +195,7 @@ const NotificationMenu = ({
                 notification={notification}
                 hasNextPage={hasNextPage}
                 fetchNextPage={fetchNextPage}
-                token={token}
+               
               />
             ))}
           </div>

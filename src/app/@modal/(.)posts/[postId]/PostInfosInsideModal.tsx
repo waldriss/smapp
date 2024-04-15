@@ -40,8 +40,8 @@ const PostInfosInsideModal = ({
   const router = useRouter();
   const ismd = useMediaQuery("(min-width: 768px)");
   return ismd ? (
-    <section className="  w-full flex-col items-center xl:h-[664px] bg-[#0d0d12] rounded-3xl xl:flex-row flex xl:items-stretch overflow-hidden border-solid border border-1px border-borderPrimary">
-      <div className="w-full xl:w-1/2 flex flex-col justify-center items-center p-5 ">
+    <section className="  w-full flex-col items-center lg:h-[664px] bg-[#0d0d12] rounded-3xl lg:flex-row flex lg:items-stretch overflow-hidden border-solid border border-1px border-borderPrimary">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-5 ">
         <Image
           alt="OM"
           className="object-cover object-center h-full w-full rounded-2xl"
@@ -51,7 +51,7 @@ const PostInfosInsideModal = ({
         />
       </div>
 
-      <PostInfos deletePost={deletePost} post={postData} />
+      <PostInfos ismodal deletePost={deletePost} post={postData} />
     </section>
   ) : (
     <>

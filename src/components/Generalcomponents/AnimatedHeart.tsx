@@ -1,5 +1,5 @@
 import { useDisLikePost, useLikePost } from "@/lib/react-query/mutations";
-import { UseToken } from "@/lib/store/store";
+
 import { infiniteQueryData, IPost, Liker } from "@/lib/types/Post";
 import { useAuth, useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
@@ -12,52 +12,50 @@ const AnimatedHeart = ({
   subclass,
   likers,
   postId,
-
 }: {
   subclass?: string;
   likers: Liker[];
   postId: number;
 }) => {
-
   const { user } = useUser();
   const { getToken } = useAuth();
- 
-  const queryClient=useQueryClient()
+
+  const queryClient = useQueryClient();
   const checkIsLiked = likers.some(
     (liker) => liker.likerId.toString() === user?.externalId
   );
 
-
-  
-
-  const { mutateAsync: likePost } = useLikePost(user?.externalId?user.externalId:"",getToken);
-  const { mutateAsync: dislikePost } = useDisLikePost(user?.externalId?user.externalId:"",getToken);
-
+  const { mutateAsync: likePost, isPending: isLiking } = useLikePost(
+    user?.externalId ? user.externalId : "",
+    getToken
+  );
+  const { mutateAsync: dislikePost, isPending: isDisliking } = useDisLikePost(
+    user?.externalId ? user.externalId : "",
+    getToken
+  );
 
   const handleClick = async (e: any) => {
     e.preventDefault();
-    if (user?.externalId) {
-      if (!checkIsLiked) {
-       
-
-       
-
-        await likePost({
-          postId: postId,
-          userId: parseInt(user.externalId),
-        });
-      } else {
-      
-        await dislikePost({
-          postId: postId,
-          userId: parseInt(user.externalId),
-        });
+    if (!isLiking && !isDisliking) {
+      if (user?.externalId) {
+        if (!checkIsLiked) {
+          await likePost({
+            postId: postId,
+            userId: parseInt(user.externalId),
+          });
+        } else {
+          await dislikePost({
+            postId: postId,
+            userId: parseInt(user.externalId),
+          });
+        }
       }
     }
   };
 
-  return (checkIsLiked===null?
-    <LoadingSvg className="w-10 h-10"/>:
+  return checkIsLiked === null ? (
+    <LoadingSvg className="w-10 h-10" />
+  ) : (
     <div className="relative ">
       <input
         type="checkbox"

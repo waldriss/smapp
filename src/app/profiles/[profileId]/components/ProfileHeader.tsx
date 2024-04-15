@@ -16,6 +16,7 @@ import FollowButtons from "./FollowButtons";
 import { FollowedRequest } from "@/lib/types/user";
 import FollowRequestsList from "./FollowRequestsList";
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
+import profilesvg from "@public/svgs/profile.svg"
 
 const ProfileHeader = ({
   profileId,
@@ -46,13 +47,13 @@ const ProfileHeader = ({
   );
   return (
     <div className="w-full bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2 h-52 sm:h-60 md:h-40 relative mb-5 sm:mb-8">
-      <div className="absolute rounded-full circle w-40 h-40  sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-solid border-backgroundgrad2 border-[12px] bg-white bottom-0 translate-y-1/2 left-2 sm:left-10">
+      <div className="absolute rounded-full circle w-40 h-40  sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-solid border-backgroundgrad2 border-[12px] bg-transparent bottom-0 translate-y-1/2 left-2 sm:left-10">
         <Image
-          alt="OM"
-          className="w-full h-full rounded-full border-1 border-solid border-whiteShade"
-          width={800}
-          height={800}
-          src={userImage ? userImage : img.src}
+          alt={"OM"}
+          className={`w-full h-full ${userImage?"border-whiteShade":"p-6 border-backgroundgrad2"} bg-borderPrimary rounded-full border-1 border-solid `}
+          width={200}
+          height={200}
+          src={userImage ? userImage : profilesvg.src}
         />
         {isEdit && (
           <>

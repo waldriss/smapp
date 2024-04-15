@@ -48,7 +48,7 @@ const ExplorePostsContainer = ({
       },
       (data: any) => {
        
-       console.log(data);
+       
         return {
           pages: [posts],
           pageParams: [1],

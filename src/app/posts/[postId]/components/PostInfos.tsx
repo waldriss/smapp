@@ -6,11 +6,15 @@ import { TPostDetails } from "@/lib/types/Post";
 import PostCommentsAndActions from "./PostCommentsAndActions";
 import { UseMutateAsyncFunction } from "@tanstack/react-query";
 import { calculateTimeElapsed } from "@/lib/utils";
-
+import Link from "next/link";
+import Image from "next/image";
+import profilesvg from "@public/svgs/profile.svg"
 const PostInfos = ({
+  ismodal,
   post,
   deletePost,
 }: {
+  ismodal?:boolean;
   post: TPostDetails;
   deletePost: UseMutateAsyncFunction<
     any,
@@ -24,21 +28,24 @@ const PostInfos = ({
 }) => {
  
   return (
-    <section className=" relative w-full xl:w-1/2  bggradientPostInfos pt-5  px-3 sm:px-7 pb-3 xl:pb-1">
+    <section className={` relative w-full ${ismodal?"lg:w-1/2 lg:pb-1":"xl:w-1/2 xl:pb-1"}  bggradientPostInfos pt-5  px-3 sm:px-7 pb-3 `}>
       <div className="flex items-center space-x-2 font-sans-serif2    ">
-        <Avatar className="w-12 h-12">
+       <Link href={`/profiles/${post.posterId}`}>
+       <Avatar  className="w-12 h-12">
           <AvatarImage src={post.poster.userImage} />
-          <AvatarFallback>{post.poster.name.substring(0, 2)}</AvatarFallback>
+          <AvatarFallback>  <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/></AvatarFallback>
         </Avatar>
+       </Link>
+       
 
-        <div>
+        <Link href={`/profiles/${post.posterId}`}>
           <p className="text-sm font-semibold text-whiteShade leading-none">
             {post.poster.name}
           </p>
           <p className="text-sm text-muted-foreground">
             @{post.poster.username}
           </p>
-        </div>
+        </Link>
       </div>
       <Separator className="bg-[#171821] mt-6 " />
       <p className="text-center flex flex-col  sm:flex-row justify-between font-sans-serif2 text-sm sm:text-base pt-1 w-full text-muted-foreground font-extralight">

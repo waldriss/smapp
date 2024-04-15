@@ -22,9 +22,10 @@ import { AuthenticatedUser } from "@/lib/types/user";
 import { useGetAuthenticatedUser } from "@/lib/react-query/queries";
 import { Button } from "../ui/button";
 import { useMediaQuery } from "@/lib/hooks/mediaqueryhook";
-import { UseAuthenticatedUser, UseToken } from "@/lib/store/store";
+import { UseAuthenticatedUser } from "@/lib/store/store";
 import LoadingSvg from "./LoadingSvg";
-
+import Image from "next/image";
+import profilesvg from "@public/svgs/profile.svg"
 interface SideNavProps {
   defaultLayout: number[] | undefined;
   defaultCollapsed: boolean;
@@ -58,7 +59,7 @@ const SideNav = ({
   ) as { data: AuthenticatedUser };
 
   const { setauthenticatedUser } = UseAuthenticatedUser();
-  const { setToken,token:gobalToken } = UseToken();
+
   useEffect(() => {
     setauthenticatedUser(authenticatedUser);
   }, [authenticatedUser]);
@@ -137,7 +138,7 @@ const SideNav = ({
                     <Avatar className=" border-borderPrimary border-3 w-12 h-12">
                       <AvatarImage src={authenticatedUser.userImage} />
                       <AvatarFallback>
-                        {authenticatedUser.name.substring(0, 2)}
+                      <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/>
                       </AvatarFallback>
                     </Avatar>
                     {!isCollapsed && (
@@ -155,7 +156,7 @@ const SideNav = ({
 
                 {user?.externalId?
                   <NotificationMenu
-                    token={gobalToken}
+                 
                     InitialNotifications={notifications.length==0?undefined:notifications}
                     userId={user?.externalId}
                   />

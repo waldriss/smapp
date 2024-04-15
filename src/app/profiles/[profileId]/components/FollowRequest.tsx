@@ -3,12 +3,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useAcceptFollow, useDeleteFollow } from "@/lib/react-query/mutations";
-import { UseToken } from "@/lib/store/store";
+
 import { FollowerOrfollowed } from "@/lib/types/user";
 import { useAuth } from "@clerk/nextjs";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-
+import profilesvg from "@public/svgs/profile.svg"
 const FollowRequest = ({
   followerOrFollowed,
   profileId,
@@ -68,7 +69,7 @@ const FollowRequest = ({
           <Avatar className="w-12 h-12">
             <AvatarImage src={followerOrFollowed.userImage} />
             <AvatarFallback className="text-black">
-              {followerOrFollowed.name.substring(0, 2)}
+            <Image alt=''  className='w-full h-full p-1 bg-borderPrimary' src={profilesvg.src} height={100} width={100}/>
             </AvatarFallback>
           </Avatar>
 
