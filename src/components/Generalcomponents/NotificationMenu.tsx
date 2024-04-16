@@ -169,9 +169,9 @@ const NotificationMenu = ({
           className="relative w-[70%] bg-secondary hover:bg-[#2e3142]"
         >
           <Bell className="w-5 h-5" />
-          <span className="absolute text-[12px] -bottom-2 -right-2 bg-primary rounded-full flex justify-center items-center h-5 w-5">
+          {notifications[0]?.NbUnseenNotifications&&notifications[0]?.NbUnseenNotifications!=0 &&<span className="absolute text-[12px] -bottom-2 -right-2 bg-primary rounded-full flex justify-center items-center h-5 w-5">
             {notifications[0]?.NbUnseenNotifications}
-          </span>
+          </span>}
         </Button>
       </PopoverTrigger>
 
@@ -182,7 +182,7 @@ const NotificationMenu = ({
               Notifications
             </h4>
             <p className="text-sm  font-sans-serif2 text-muted-foreground">
-              {notifications[0]?.NbUnseenNotifications} unseen
+              {notifications[0]?.NbUnseenNotifications} {notifications[0]?.NbUnseenNotifications&&notifications[0]?.NbUnseenNotifications!=0 &&'unseen'}  
             </p>
           </div>
 

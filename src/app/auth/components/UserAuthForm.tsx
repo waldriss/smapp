@@ -26,7 +26,7 @@ export function UserAuthForm() {
       {signIn ? (
         <SigninForm isLoading={isLoading} setIsLoading={setIsLoading} />
       ) : (
-        <SignupForm isLoading={isLoading} setIsLoading={setIsLoading} />
+        <SignupForm setsignIn={setsignIn} isLoading={isLoading} setIsLoading={setIsLoading} />
       )}
       { !isLoading&&(signIn ? (
         <p className="px-8 font-sans-serif2 text-center text-sm text-muted-foreground">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img from "@public/images/glacier-aurora-aurora-borealis-night.jpg";
 import Image from "next/image";
 import {
@@ -17,6 +17,7 @@ import { FollowedRequest } from "@/lib/types/user";
 import FollowRequestsList from "./FollowRequestsList";
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
 import profilesvg from "@public/svgs/profile.svg"
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ProfileHeader = ({
   profileId,
@@ -39,22 +40,29 @@ const ProfileHeader = ({
   followedBy?: FollowedRequest[];
   isUpdatingUser?: boolean;
 }) => {
+  const [loadedImage,setLoadedImage]=useState(false);
+  useEffect(()=>{if(isUpdatingUser){setLoadedImage(false);}},[isUpdatingUser])
   const AuthenticatedFollowRequest = followedBy?.find(
     (followRequest) => followRequest.follower.id.toString() == AuthId
   );
   const followRequestsList = followedBy?.filter(
     (followRequest) => followRequest.state === "pending"
   );
+
+
   return (
     <div className="w-full bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2 h-52 sm:h-60 md:h-40 relative mb-5 sm:mb-8">
-      <div className="absolute rounded-full circle w-40 h-40  sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-solid border-backgroundgrad2 border-[12px] bg-transparent bottom-0 translate-y-1/2 left-2 sm:left-10">
+      <div className="absolute rounded-full circle w-40 h-40  sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-backgroundgrad1 border-solid border-backgroundgrad2 border-[12px]  bottom-0 translate-y-1/2 left-2 sm:left-10">
         <Image
           alt={"OM"}
-          className={`w-full h-full ${userImage?"border-whiteShade":"p-6 border-backgroundgrad2"} bg-borderPrimary rounded-full border-1 border-solid `}
+          className={`w-full h-full ${userImage?"border-whiteShade":"p-6 border-backgroundgrad2"} ${loadedImage?"opacity-1":"opacity-0"} transition-opacity !duration-400 bg-borderPrimary rounded-full border-1 border-solid `}
           width={200}
           height={200}
           src={userImage ? userImage : profilesvg.src}
+          onLoad={()=>{setLoadedImage(true);}}
         />
+        <Skeleton className={` w-full h-full rounded-full absolute top-0 ${loadedImage?"hidden":"block"} `} />
+
         {isEdit && (
           <>
             <FormField

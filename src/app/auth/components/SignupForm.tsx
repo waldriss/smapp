@@ -30,13 +30,13 @@ const formSchema = z
     }),
     password_reg: z.string().min(8, {
       message: "password must be at least 8 characters.",
-    }),
+    }).max(20, { message: "Maximum 20 characters." }),
     username: z.string().min(8, {
       message: "username must be at least 8 characters.",
-    }),
-    name: z.string().min(6, {
-      message: "name must be at least 6 characters.",
-    }),
+    }).max(20, { message: "Maximum 20 characters." }),
+    name: z.string().min(4, {
+      message: "name must be at least 4 characters.",
+    }).max(20, { message: "Maximum 20 characters." }),
     password_reg_confirmation: z.string().min(8, {
       message: "password confirmation must be at least 8 characters.",
     }),
@@ -46,7 +46,7 @@ const formSchema = z
     path: ["password_reg_confirmation"],
   });
 
-const SignupForm = ({isLoading,setIsLoading}:{isLoading:boolean,setIsLoading:any}) => {
+const SignupForm = ({isLoading,setIsLoading,setsignIn}:{isLoading:boolean,setIsLoading:any,setsignIn:any}) => {
   const {mutateAsync:registerInDB}=useRegisterInDB()
   
   const toastContent = (message: string,id:string) => (
@@ -81,6 +81,11 @@ const SignupForm = ({isLoading,setIsLoading}:{isLoading:boolean,setIsLoading:any
         name:values.name,
         password:values.password_reg}
       );
+      setIsLoading(false);
+      const id=generateUniqueId();
+      toast(toastContent("your account has been created successfully.",id),{position:"bottom-center",id:id});
+      setsignIn(true);
+
     } catch (error: any) {
       setIsLoading(false);
       

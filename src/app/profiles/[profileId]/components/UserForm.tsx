@@ -25,10 +25,10 @@ import { Button } from "@/components/ui/button";
 const formSchema = z.object({
   username: z.string().min(8, {
     message: "username must be at least 8 characters.",
-  }),
-  name: z.string().min(6, {
-    message: "name must be at least 6 characters.",
-  }),
+  }).max(20, { message: "Maximum 20 characters." }),
+  name: z.string().min(4, {
+    message: "name must be at least 4 characters.",
+  }).max(20, { message: "Maximum 20 characters." }),
   bio: z.string().optional(),
   file: z.custom<File[]>().optional(),
 });
@@ -69,7 +69,7 @@ const UserForm = ({
     defaultValues: {
       username: user.username,
       name: user.name,
-      bio: user.bio,
+      bio: user?.bio?user.bio:"",
       file: [],
     },
   });
@@ -77,6 +77,7 @@ const UserForm = ({
   const onSubmit = async (formUser: z.infer<typeof formSchema>) => {
     if (authentifiedUser?.externalId) {
       if (parseInt(authentifiedUser.externalId) === user.id) {
+        
         const updatedUser = await updateUser({
           name: formUser.name,
           username: formUser.username,

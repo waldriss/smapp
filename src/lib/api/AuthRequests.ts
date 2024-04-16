@@ -9,6 +9,7 @@ export const registerUserInDB = async (
 }:UserToRegister
 ) => {
   try {
+  
     const res = await fetch(`${backendUrl}register`, {
       method: "POST",
       headers: {
@@ -16,6 +17,7 @@ export const registerUserInDB = async (
       },
       body: JSON.stringify({ email, username, name,password }),
     });
+
 
     if (!res.ok) {
       const error=await res.json();
@@ -26,6 +28,7 @@ export const registerUserInDB = async (
         return res.json();
     }
   } catch (error) {
+    console.log(error);
     
     throw error
   }

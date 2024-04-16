@@ -64,11 +64,17 @@ const Resizable = ({
             id="scrollableResizable"
             className="max-h-screen min-h-screen overflow-y-scroll customScrollBar_dark bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2"
           >
-            <TopNav notifications={notifications} />
+            {pathname != "/auth" &&
+              pathname != "/googleAuthLoader" &&
+              pathname != "/ssocallback" && (
+                <TopNav notifications={notifications} />
+              )}
 
             {children}
 
-            <BottomNav />
+            {pathname != "/auth" &&
+              pathname != "/googleAuthLoader" &&
+              pathname != "/ssocallback" && <BottomNav />}
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

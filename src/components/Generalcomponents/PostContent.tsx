@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import AnimatedHeart from "./AnimatedHeart";
 import { BookmarkPlus, MessageCircle } from "lucide-react";
 import { IPost } from "@/lib/types/Post";
@@ -8,21 +8,28 @@ import Share from "./Share";
 import { Separator } from "../ui/separator";
 import { calculateTimeElapsed } from "@/lib/utils";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 const PostContent = ({ post }: { post: IPost }) => {
+  const [loadedImage,setLoadedImage]=useState(false);
   return (
     <div className="text-white font-sans-serif2  w-full ">
       <Link
         href={`/posts/${post.id}`}
-        className=" block rounded-t-3xl rounded-b-xl border-solid border-1 border-[#111118] overflow-hidden w-full"
+        className="relative block rounded-t-3xl rounded-b-xl border-solid border-1 border-[#111118] overflow-hidden w-full"
       >
-        <Image
-          alt="OM"
-          className="w-full aspect-square "
-          width={800}
-          height={800}
-          src={post ? post.postImage : ""}
-        />
+         <Image
+            alt="OM"
+            className={`w-full aspect-square transition-opacity !duration-400 ${loadedImage?"opacity-1":"opacity-0"} `}
+            width={800}
+            height={800}
+            src={post ? post.postImage : ""}
+            onLoad={()=>setLoadedImage(true)}
+          />
+        
+         
+          <Skeleton className={`aspect-square w-full h-full absolute top-0 ${loadedImage?"hidden":"block"}`} />
+       
       </Link>
       <div>
         <div className=" gap-x-2 py-1 relative flex justify-start items-center w-full px-4">
