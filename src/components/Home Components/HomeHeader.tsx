@@ -54,7 +54,7 @@ const refresh=()=>{
           layout
           className={`${
             isAnimateHomeHeader ? "border-2 border-primary h-[70px] glassHome mt-2 lg:-mt-5 " : " border-borderPrimary border h-20 mt-8 "
-          }  bg-[#171821]    rounded-2xl md:w-[92%] lg:w-[90%] ml-[9px]     flex justify-center items-center relative`}
+          }  bg-[#171821]    rounded-2xl md:w-[92%] lg:w-[90%]     flex justify-center items-center relative`}
         >
           <motion.div onClick={refresh} className="rounded-full relative hover:bg-primary hover:text-whiteShade hover:border-primary transition-colors duration-300 cursor-pointer bg-[#1b1c27] border-[#15161e] border-1 p-3 text-primary ">
             <MotionHomeIcon className="relative h-7 w-7" />

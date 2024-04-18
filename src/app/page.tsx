@@ -40,7 +40,7 @@ export default async function Home() {
       
       </div>
 
-      <section className="flex flex-shrink h-screen  pb-2">
+      <section className="flex flex-shrink h-screen !pb-0  sm:pb-2">
         {sessionClaims?.userId && (
           <>
             <Suspense fallback={LoadingPosts}>

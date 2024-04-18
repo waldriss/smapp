@@ -16,19 +16,21 @@ const PostContent = ({ post }: { post: IPost }) => {
     <div className="text-white font-sans-serif2  w-full ">
       <Link
         href={`/posts/${post.id}`}
-        className="relative block sm:rounded-t-3xl sm:rounded-b-xl border-solid border-1 border-[#111118] overflow-hidden w-full"
+        className="relative block sm:p-8 border-solid border-y-1 border-[#111118] sm:border-y-0 overflow-hidden w-full"
       >
          <Image
             alt="OM"
-            className={`w-full object-cover sm:object-fill aspect-square transition-opacity !duration-400 ${loadedImage?"opacity-1":"opacity-0"} `}
+            className={`w-full sm:rounded-3xl object-cover sm:object-fill aspect-square transition-opacity !duration-400 ${loadedImage?"opacity-1":"opacity-0"} `}
             width={800}
             height={800}
             src={post ? post.postImage : ""}
             onLoad={()=>setLoadedImage(true)}
           />
         
-         
-          <Skeleton className={`aspect-square w-full h-full absolute top-0 ${loadedImage?"hidden":"block"}`} />
+         <div className={`sm:p-8 w-full h-full absolute top-0 left-0 ${loadedImage?"hidden":"block"}`}>
+         <Skeleton className={` aspect-square rounded-none sm:rounded-3xl w-full h-full  ${loadedImage?"hidden":"block"}`} />
+         </div>
+      
        
       </Link>
       <div>

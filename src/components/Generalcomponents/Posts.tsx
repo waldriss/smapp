@@ -63,12 +63,12 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
     <section
       ref={scrollableParentRef}
       id="scrollablediv"
-      className="relative max-h-screen md:h-screen w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[65%] xl:w-[65%] mt-20 md:mt-0 md:pt-28  overflow-y-scroll customScrollBar_Home_dark "
+      className="relative sm:border-r-1 sm:border-borderPrimary max-h-screen md:h-screen w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[65%] xl:w-[65%] mt-20 md:mt-0 md:pt-28  overflow-y-scroll customScrollBar_Home_dark "
     >
       {/*<h1  className=" pl-7 pt-8 text-4xl font-bold w-full text-whiteShade "> Home Feed</h1>*/}
       {/*<HomePostInfos open={false}/>*/}
       <InfiniteScroll
-        className="flex sm:gap-y-16 pb-36 md:pb-14 sm:pt-14 sm:pl-[18px] flex-col justify-start items-center w-full"
+        className="flex   sm:border-y-borderPrimary sm:border-y-1  pb-36 sm:pb-0  sm:mt-14  flex-col justify-start items-center w-full"
         dataLength={scrollPosts.length}
         next={() => {
           fetchNextPage();

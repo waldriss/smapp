@@ -62,7 +62,7 @@ const Resizable = ({
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
           <div
             id="scrollableResizable"
-            className="max-h-screen min-h-screen overflow-auto sm:overflow-y-scroll customScrollBar_dark bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2"
+            className={`${pathname === "/"&&'hidescrollbar'} max-h-screen  min-h-screen overflow-auto sm:overflow-y-scroll customScrollBar_dark bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2`}
           >
             {pathname != "/auth" &&
               pathname != "/googleAuthLoader" &&

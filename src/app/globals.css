@@ -584,6 +584,9 @@ body {}
   background: transparent;
 
 }
+.hidescrollbar::-webkit-scrollbar{
+  display: none;
+}
 
 .customScrollBar_dark::-webkit-scrollbar-thumb {
   border-radius: 9999px;
@@ -596,6 +599,7 @@ body {}
     width: 9px;
     height: 10px;
     background: transparent;
+    display: none;
   
   }
   
