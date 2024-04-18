@@ -16,11 +16,11 @@ const PostContent = ({ post }: { post: IPost }) => {
     <div className="text-white font-sans-serif2  w-full ">
       <Link
         href={`/posts/${post.id}`}
-        className="relative block rounded-t-3xl rounded-b-xl border-solid border-1 border-[#111118] overflow-hidden w-full"
+        className="relative block sm:rounded-t-3xl sm:rounded-b-xl border-solid border-1 border-[#111118] overflow-hidden w-full"
       >
          <Image
             alt="OM"
-            className={`w-full aspect-square transition-opacity !duration-400 ${loadedImage?"opacity-1":"opacity-0"} `}
+            className={`w-full object-cover sm:object-fill aspect-square transition-opacity !duration-400 ${loadedImage?"opacity-1":"opacity-0"} `}
             width={800}
             height={800}
             src={post ? post.postImage : ""}
