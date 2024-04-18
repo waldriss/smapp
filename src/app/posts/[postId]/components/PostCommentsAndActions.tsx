@@ -1,5 +1,4 @@
 import { TPostDetails } from "@/lib/types/Post";
-import React from "react";
 import Comments from "./Comments";
 import PostActions from "./PostActions";
 import { useUser } from "@clerk/nextjs";
@@ -9,7 +8,7 @@ import { toast } from "sonner";
 import { generateUniqueId } from "@/lib/utils";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { useRouter } from "next/navigation";
-import { PencilRuler, Trash2 } from "lucide-react";
+import { PencilRuler } from "lucide-react";
 import AlertDelete from "./AlertDelete";
 
 const PostCommentsAndActions = ({

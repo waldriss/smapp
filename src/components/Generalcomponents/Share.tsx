@@ -3,7 +3,6 @@ import { useSharePost, useUnsharePost } from "@/lib/react-query/mutations";
 import { Sharer } from "@/lib/types/Post";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { BookmarkPlus } from "lucide-react";
-import React, { useEffect, useState } from "react";
 
 const Share = ({
   sharers,

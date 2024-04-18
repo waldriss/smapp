@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -17,7 +16,7 @@ import { useCommentPost } from "@/lib/react-query/mutations";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 const formSchema = z.object({
   body: z.string(),
 });

@@ -1,5 +1,3 @@
-import ExplorePost from '@/components/Generalcomponents/ExplorePost'
-import React from 'react'
 
 const RelatedPosts = () => {
   return (

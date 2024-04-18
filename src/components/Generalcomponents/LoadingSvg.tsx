@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import React from 'react'
 import loading from '@public/svgs/Dual Ring-0.7s-200px.svg'
 import whiteLoading from '@public/svgs/loadingWhite.svg'
 const LoadingSvg = ({className,isWhite}:{className?:string,isWhite?:boolean}) => {

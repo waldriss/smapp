@@ -1,17 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import { TooltipProvider } from "../ui/tooltip";
 import {
   ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
+  ResizablePanel
 } from "../ui/resizable";
 import { Nav } from "./Nav";
 import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
-import { Image as Image_icon, Bookmark, Home, Send, ImagePlus, LogOut, Aperture } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Input } from "../ui/input";
+import { Image as Image_icon, Home, Send, ImagePlus, LogOut, Aperture } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth, useClerk, useUser } from "@clerk/nextjs";
@@ -25,7 +21,7 @@ import { useMediaQuery } from "@/lib/hooks/mediaqueryhook";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import LoadingSvg from "./LoadingSvg";
 import Image from "next/image";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 interface SideNavProps {
   defaultLayout: number[] | undefined;
   defaultCollapsed: boolean;

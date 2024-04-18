@@ -1,24 +1,17 @@
-import React from "react";
 import { z } from "zod";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Generalcomponents/icons";
-import { clerkClient } from "@clerk/nextjs";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  FormControl, FormField,
+  FormItem, FormMessage
 } from "@/components/ui/form";
 import { useSignUp } from "@clerk/nextjs";
-import { registerUserInDB } from "@/lib/api/AuthRequests";
 import { toast } from "sonner";
 import { generateUniqueId } from "@/lib/utils";
 import { useRegisterInDB } from "@/lib/react-query/mutations";

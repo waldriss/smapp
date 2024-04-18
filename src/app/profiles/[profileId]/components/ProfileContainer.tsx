@@ -11,7 +11,7 @@ import { useGetUser } from "@/lib/react-query/queries";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 
-const ProfileContainer = ({ user,userId,token}: { user: TUser,userId:string,token:string|null }) => {
+const ProfileContainer = ({ user,userId}: { user: TUser,userId:string }) => {
   const { getToken } = useAuth();
 
   const {data:userData}=useGetUser(userId,user,getToken) as {data:TUser}

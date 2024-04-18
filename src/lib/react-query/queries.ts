@@ -1,7 +1,6 @@
 import {
   useInfiniteQuery,
-  useQuery,
-  useQueryClient,
+  useQuery
 } from "@tanstack/react-query";
 import { QUERY_KEYS } from "./queryKeys";
 import { getExplorePosts, getHomePosts, getPost } from "../api/PostRequests";

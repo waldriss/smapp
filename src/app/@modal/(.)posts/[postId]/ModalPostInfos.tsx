@@ -2,10 +2,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog2";
 import { useMediaQuery } from "@/lib/hooks/mediaqueryhook";
 import { useRouter } from "next/navigation";

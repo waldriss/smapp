@@ -2,8 +2,7 @@
 import AnimatedHeart from "@/components/Generalcomponents/AnimatedHeart";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { BookmarkPlus } from "lucide-react";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import CommentForm from "./CommentForm";
 import { Liker, Sharer } from "@/lib/types/Post";
 import Share from "@/components/Generalcomponents/Share";

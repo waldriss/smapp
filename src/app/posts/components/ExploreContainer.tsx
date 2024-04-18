@@ -1,5 +1,4 @@
 "use client"
-import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TExplorePost } from "@/lib/types/Post";
 import ExplorePostsContainer from "./ExplorePostsContainer";
@@ -11,12 +10,11 @@ const ExploreContainer = ({
     posts,
     search,
     users,
-    token,
+
   }: {
     posts: TExplorePost[];
     users:TExploreUser[];
     search?: string;
-    token:string|null
   }) => {
     const router = useRouter();
 
@@ -40,11 +38,11 @@ const ExploreContainer = ({
         </TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
-      <ExplorePostsContainer token={token} search={search} posts={posts}/>
+      <ExplorePostsContainer  search={search} posts={posts}/>
       
       </TabsContent>
       <TabsContent value="users">
-        <ExploreUsersContainer token={token} initialUsers={users} search={search} />
+        <ExploreUsersContainer  initialUsers={users} search={search} />
         
       </TabsContent>
     </Tabs>

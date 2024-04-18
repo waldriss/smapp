@@ -17,7 +17,7 @@ const ProfilePage = async({params:{profileId}}:{params:{profileId:string}}) => {
   
 
   return (
-   <ProfileContainer token={token} userId={profileId} user={user}/>
+   <ProfileContainer  userId={profileId} user={user}/>
   );
 };
 

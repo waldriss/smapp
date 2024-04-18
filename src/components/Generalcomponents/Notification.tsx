@@ -1,14 +1,12 @@
-import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { TNotification } from "@/lib/types/Notification";
 import { useRouter } from "next/navigation";
 import { useSeeNotification } from "@/lib/react-query/mutations";
-import { Button } from "../ui/button";
 import { calculateTimeElapsed, notificationAvatarsrc, NotificationBody, NotificationLink } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 
 
 

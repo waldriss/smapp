@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 
 import { TPostDetails } from "@/lib/types/Post";
@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { useDeletePost } from "@/lib/react-query/mutations";
-import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
 
 import { useAuth } from "@clerk/nextjs";
 import PostInfos from "@/app/posts/[postId]/components/PostInfos";
@@ -18,11 +17,11 @@ import { useMediaQuery } from "@/lib/hooks/mediaqueryhook";
 const PostInfosInsideModal = ({
   post,
   postId,
-  token,
+
 }: {
   post: TPostDetails;
   postId: string;
-  token: string | null;
+
 }) => {
   const { getToken } = useAuth();
 

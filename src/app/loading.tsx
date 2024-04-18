@@ -1,5 +1,4 @@
 import LoadingSvg from '@/components/Generalcomponents/LoadingSvg'
-import React from 'react'
 
 const Loading = () => {
   return (

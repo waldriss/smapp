@@ -1,9 +1,8 @@
 import Image from "next/image";
-import React, { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import AnimatedHeart from "./AnimatedHeart";
-import { BookmarkPlus, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { IPost } from "@/lib/types/Post";
-import bg_grid from "@public/svgs/grid.svg";
 import Share from "./Share";
 import { Separator } from "../ui/separator";
 import { calculateTimeElapsed } from "@/lib/utils";

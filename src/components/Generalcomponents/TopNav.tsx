@@ -1,7 +1,5 @@
-import React from "react";
 import NotificationMenu from "./NotificationMenu";
 import { TNotification } from "@/lib/types/Notification";
-import { AuthenticatedUser } from "@/lib/types/user";
 import { Button } from "../ui/button";
 import { Aperture, LogOut } from "lucide-react";
 import { useClerk } from "@clerk/nextjs";

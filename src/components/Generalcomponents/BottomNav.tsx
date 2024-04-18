@@ -1,5 +1,3 @@
-import React from "react";
-import bnb from "@public/svgs/BNB-33 (1).svg";
 
 import { Plus } from "lucide-react";
 import { Image as ImgIcon, Home, Send } from "lucide-react";
@@ -7,7 +5,7 @@ import Link from "next/link";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 const BottomNav = () => {
   const {authenticatedUser,setauthenticatedUser}=UseAuthenticatedUser();
   const pathname = usePathname();

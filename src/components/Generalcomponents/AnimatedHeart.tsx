@@ -1,12 +1,9 @@
 import { useDisLikePost, useLikePost } from "@/lib/react-query/mutations";
 
-import { infiniteQueryData, IPost, Liker } from "@/lib/types/Post";
+import { Liker } from "@/lib/types/Post";
 import { useAuth, useUser } from "@clerk/nextjs";
-import React, { useEffect, useState } from "react";
 import LoadingSvg from "./LoadingSvg";
 import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
-import { addLikerToPost } from "@/lib/utils";
 
 const AnimatedHeart = ({
   subclass,

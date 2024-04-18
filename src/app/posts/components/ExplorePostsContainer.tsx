@@ -1,12 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-import SelectExplorePosts from "./SelectExplorePosts";
 import ExplorePost from "@/components/Generalcomponents/ExplorePost";
 import { TExplorePost } from "@/lib/types/Post";
 import PostSearch from "./PostSearch";
 import { useGetExplorePosts } from "@/lib/react-query/queries";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { Button } from "@/components/ui/button";
@@ -17,11 +15,11 @@ import { useAuth } from "@clerk/nextjs";
 const ExplorePostsContainer = ({
   posts,
   search,
-  token,
+
 }: {
   posts: TExplorePost[];
   search?: string;
-  token: string | null;
+
 }) => {
   const { getToken } = useAuth();
   

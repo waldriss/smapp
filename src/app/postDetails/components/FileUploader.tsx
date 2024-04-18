@@ -5,7 +5,6 @@ import { FileWithPath, useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { ImagePlus } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { useFormField } from "@/components/ui/form";
 
 type FileUploaderProps = {
   fieldChange: (files: File[]) => void;

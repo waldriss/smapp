@@ -1,8 +1,6 @@
 import { getServerSideTopUsers } from "@/lib/api/serverSideRequests";
 import { TopUser } from "@/lib/types/user";
-import React, { Suspense } from "react";
 import TopAccounts from "./TopAccounts";
-import LoadingSvg from "../Generalcomponents/LoadingSvg";
 import { auth } from "@clerk/nextjs";
 
 

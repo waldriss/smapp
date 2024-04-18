@@ -1,14 +1,12 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Post from "./Post";
 import { IPost } from "@/lib/types/Post";
 import { useGetHomePosts } from "@/lib/react-query/queries";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSvg from "./LoadingSvg";
-import { Home } from "lucide-react";
 import { UseAnimateHomeHeader } from "@/lib/store/store";
 import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { useAuth } from "@clerk/nextjs";
 
 
@@ -68,7 +66,7 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
       {/*<h1  className=" pl-7 pt-8 text-4xl font-bold w-full text-whiteShade "> Home Feed</h1>*/}
       {/*<HomePostInfos open={false}/>*/}
       <InfiniteScroll
-        className="flex   sm:border-y-borderPrimary sm:border-y-1  pb-36 sm:pb-0  sm:mt-14  flex-col justify-start items-center w-full"
+        className="flex   sm:border-y-borderPrimary sm:border-y-1  pb-36 sm:pb-0  md:mt-14  flex-col justify-start items-center w-full"
         dataLength={scrollPosts.length}
         next={() => {
           fetchNextPage();

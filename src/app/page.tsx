@@ -1,6 +1,3 @@
-import Image from "next/image";
-import Posts from "@/components/Generalcomponents/Posts";
-import TopAccounts from "@/components/Home Components/TopAccounts";
 import { auth } from "@clerk/nextjs";
 
 import { IPost } from "@/lib/types/Post";
@@ -9,7 +6,6 @@ import PostsContainer from "@/components/Home Components/PostsContainer";
 import TopAccountsContainer from "@/components/Home Components/TopAccountsContainer";
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
 import { Suspense } from "react";
-import {  Users } from "lucide-react";
 import HomeHeader from "@/components/Home Components/HomeHeader";
 
 

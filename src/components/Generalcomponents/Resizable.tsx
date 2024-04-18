@@ -1,16 +1,14 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import { TooltipProvider } from "../ui/tooltip";
 import { ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
-import { cookies } from "next/headers";
 import SideNav from "./SideNav";
 import { TNotification } from "@/lib/types/Notification";
-import { User } from "@clerk/nextjs/server";
 import { AuthenticatedUser } from "@/lib/types/user";
 import BottomNav from "./BottomNav";
 import { TopNav } from "./TopNav";
 import { usePathname } from "next/navigation";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 interface ResizableProps {
   defaultLayout: number[] | undefined;

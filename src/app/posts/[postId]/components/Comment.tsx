@@ -7,8 +7,7 @@ import { useAuth } from "@clerk/nextjs";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 const Comment = ({
 
   comment,

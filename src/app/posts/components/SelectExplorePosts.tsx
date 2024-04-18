@@ -1,6 +1,5 @@
 "use client"
-import React from "react";
-import {Select,SelectItem} from "@nextui-org/select";
+import { Select, SelectItem } from "@nextui-org/select";
 
 const SelectExplorePosts = () => {
     const selectElements=["opt1","opt2","opt3"];

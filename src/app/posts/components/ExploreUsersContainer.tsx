@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import { useEffect } from 'react';
 import PostSearch from './PostSearch';
 import { useGetExploreUsers } from '@/lib/react-query/queries';
 import ExploreUser from './ExploreUser';
@@ -14,11 +14,10 @@ import { useAuth } from '@clerk/nextjs';
 const ExploreUsersContainer = ({
     initialUsers,
     search,
-    token
+
   }: {
     search?: string;
     initialUsers:TExploreUser[],
-    token:string|null
   }) => {
     const {authenticatedUser}=UseAuthenticatedUser();
     const { getToken } = useAuth();

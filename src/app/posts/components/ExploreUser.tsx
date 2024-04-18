@@ -1,9 +1,7 @@
-import { TExploreUser } from '@/lib/types/user'
-import React from 'react'
+import { TExploreUser } from '@/lib/types/user';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 import Link from 'next/link';
 import Image from 'next/image';
 const ExploreUser = ({exploreUser}:{exploreUser:TExploreUser}) => {

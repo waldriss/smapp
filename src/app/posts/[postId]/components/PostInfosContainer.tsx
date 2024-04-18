@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import PostInfos from "./PostInfos";
 import { TPostDetails } from "@/lib/types/Post";
@@ -11,16 +11,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { useDeletePost } from "@/lib/react-query/mutations";
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
-import RelatedPosts from "./RelatedPosts";
 import { useAuth } from "@clerk/nextjs";
 const PostInfosContainer = ({
   post,
   postId,
-  token
+
 }: {
   post: TPostDetails;
   postId: string;
-  token:string|null
+
 }) => {
   const { getToken } = useAuth();
   

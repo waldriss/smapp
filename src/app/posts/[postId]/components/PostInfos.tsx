@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import React, { useState } from "react";
 
 import { TPostDetails } from "@/lib/types/Post";
 import PostCommentsAndActions from "./PostCommentsAndActions";
@@ -8,7 +7,7 @@ import { UseMutateAsyncFunction } from "@tanstack/react-query";
 import { calculateTimeElapsed } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 const PostInfos = ({
   ismodal,
   post,

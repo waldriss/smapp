@@ -10,14 +10,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  FormControl, FormField,
+  FormItem, FormMessage
 } from "@/components/ui/form";
-import { useAuth, useClerk, useSignIn, useUser } from "@clerk/nextjs";
+import { useClerk, useSignIn, useUser } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { generateUniqueId } from "@/lib/utils";

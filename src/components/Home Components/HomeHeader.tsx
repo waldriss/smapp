@@ -1,9 +1,9 @@
 "use client";
 import { HomeIcon, Users } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { UseAnimateHomeHeader } from "@/lib/store/store";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { infiniteQueryData, IPost } from "@/lib/types/Post";

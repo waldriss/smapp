@@ -1,5 +1,3 @@
-import React from 'react'
-import ExplorePostsContainer from './components/ExplorePostsContainer'
 import { TExplorePost } from '@/lib/types/Post'
 import { getServerSideExplorePosts, getServerSideExploreUsers } from '@/lib/api/serverSideRequests'
 import ExploreContainer from './components/ExploreContainer'
@@ -43,7 +41,7 @@ const PostsPage = async({searchParams}:{searchParams:TSearchParams}) => {
   return (
     <article className='pb-32 md:pb-0 relative px-10 sm:px-4 md:px-6 lg:px-10 xl:px-16 pt-28 md:pt-8 min-h-screen'>
      <h1 className=" pl-[9px] text-4xl font-sans font-bold w-full text-whiteShade"> Explore </h1>
-     {sessionClaims?.userId&&token?<ExploreContainer token={token} users={users} search={searchParams.search} posts={posts}/>:
+     {sessionClaims?.userId&&token?<ExploreContainer  users={users} search={searchParams.search} posts={posts}/>:
       <LoadingSvg
       className={`block h-36 w-36 mt-16`}
     />}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import FileUploader from "./FileUploader";
 import { useForm } from "react-hook-form";
@@ -23,7 +22,7 @@ import { TPostDetails } from "@/lib/types/Post";
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
 import { toast } from "sonner";
 import { generateUniqueId } from "@/lib/utils";
-const PostForm = ({ post,token }: { post?: TPostDetails,token:string|null }) => {
+const PostForm = ({ post }: { post?: TPostDetails}) => {
   const { getToken } = useAuth();
   
   const { user } = useUser();

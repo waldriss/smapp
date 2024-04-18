@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Bell } from "lucide-react";
@@ -8,17 +8,17 @@ import { TNotification } from "@/lib/types/Notification";
 import { useGetNotifications } from "@/lib/react-query/queries";
 import {
   calculateTimeElapsed,
-  
+
   notificationAvatarsrc,
   NotificationBody,
   NotificationLink,
 } from "@/lib/utils";
-import { backendUrl, generateUniqueId, socket } from "@/lib/utils";
+import { generateUniqueId, socket } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { Separator } from "../ui/separator";
 import { toast } from "sonner";
-import profilesvg from "@public/svgs/profile.svg"
+import profilesvg from "@public/svgs/profile.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useRouter } from "next/navigation";
 import { useSeeNotification } from "@/lib/react-query/mutations";

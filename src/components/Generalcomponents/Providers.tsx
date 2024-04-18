@@ -1,11 +1,11 @@
 "use client"
 import { NextUIProvider } from '@nextui-org/system';
-import React from 'react'
-import { ClerkProvider } from '@clerk/nextjs'
+import React from 'react';
+import { ClerkProvider } from '@clerk/nextjs';
 import {
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query'
+} from '@tanstack/react-query';
 const Providers = ({
     children,
   }: Readonly<{

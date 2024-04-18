@@ -1,4 +1,3 @@
-import { json } from "node:stream/consumers";
 import { NewPost, UpdatedPost } from "../types/PostRequestsTypes";
 import { backendUrl } from "../utils";
 import { GetToken } from "../types/global";

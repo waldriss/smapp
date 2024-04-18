@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Oswald } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import {NextUIProvider} from "@nextui-org/system";
 import Providers from "@/components/Generalcomponents/Providers";
-import { cookies } from "next/headers";
-import SideNav from "@/components/Generalcomponents/SideNav";
-import Resizable from "@/components/Generalcomponents/Resizable";
 import ResizableProvider from "@/components/Generalcomponents/ResizableProvider";
 import { Toaster } from "@/components/ui/sonner";
-import {Merriweather,Montserrat,Open_Sans  } from "next/font/google";
+import { Montserrat, Open_Sans } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 

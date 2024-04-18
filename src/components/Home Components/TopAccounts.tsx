@@ -1,9 +1,7 @@
 "use client"
-import React from 'react'
 import TopAccount from './TopAccount'
 import { TopUser } from '@/lib/types/user'
 import { useGetTopUsers } from '@/lib/react-query/queries'
-import { Home } from 'lucide-react'
 import { useAuth } from '@clerk/nextjs'
 
 const TopAccounts = ({InitialtopUsers,userId,token}:{InitialtopUsers:TopUser[],userId:string,token:string|null}) => {

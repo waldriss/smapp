@@ -1,5 +1,4 @@
 "use client"
-import React from 'react'
 import Comment from './Comment'
 import { TComment } from '@/lib/types/Post'
 

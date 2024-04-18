@@ -1,8 +1,7 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import AnimatedHeart from "./AnimatedHeart";
-import { BookmarkPlus, MessageCircle } from "lucide-react";
 import { TUserPost } from "@/lib/types/user";
 import Link from "next/link";
 import { TExplorePost } from "@/lib/types/Post";

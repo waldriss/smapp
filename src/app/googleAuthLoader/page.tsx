@@ -1,11 +1,9 @@
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
 import { SigInOrSignUpGoogleInDB } from "@/lib/api/AuthRequests";
 
-import { generateUniqueId } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-import React from "react";
 
 const page = async () => {
 

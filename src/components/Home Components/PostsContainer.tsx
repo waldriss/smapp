@@ -1,8 +1,6 @@
 import { getServerSideHomePosts } from "@/lib/api/serverSideRequests";
 import { IPost } from "@/lib/types/Post";
-import React, { Suspense } from "react";
 import Posts from "../Generalcomponents/Posts";
-import LoadingSvg from "../Generalcomponents/LoadingSvg";
 import { auth } from "@clerk/nextjs";
 
 

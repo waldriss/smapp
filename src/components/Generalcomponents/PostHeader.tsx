@@ -1,4 +1,3 @@
-import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { IPoster } from '@/lib/types/Post'
 import Link from 'next/link'
