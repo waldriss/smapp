@@ -26,8 +26,8 @@ import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
-  email: z.string().min(2, {
-    message: "email must be at least 2 characters.",
+  email: z.string().min(1, {
+    message: "please enter email.",
   }),
   password: z.string().min(6, {
     message: "password must be at least 6 characters.",
@@ -153,7 +153,7 @@ const SigninForm = ({
                   <FormItem className="mt-3 mb-6">
                     <FormControl>
                       <Input
-                        className="bg-transparent text-whiteShade "
+                        className=" bg-transparent text-whiteShade "
                         placeholder="Password"
                         type="password"
                         disabled={isLoading}

@@ -21,7 +21,7 @@ const HomeHeader = ({userId}:{userId:string}) => {
 
 const queryClient=useQueryClient()
 const refresh=()=>{
-  console.log("hello");
+  
   const scrollablediv=document.getElementById("scrollablediv");
   if(scrollablediv) scrollablediv.scrollTop=0;
   

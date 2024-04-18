@@ -21,9 +21,7 @@ const FollowRequest = ({
   type: string;
   isProfileOfAuth?: boolean;
 }) => {
-  console.log(isProfileOfAuth);
-  console.log(type);
-  console.log(followerOrFollowed);
+  
   const [displayComponent, setdisplayComponent] = useState(true);
   const { getToken } = useAuth();
 

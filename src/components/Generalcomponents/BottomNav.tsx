@@ -7,7 +7,7 @@ import Link from "next/link";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-
+import profilesvg from "@public/svgs/profile.svg"
 const BottomNav = () => {
   const {authenticatedUser,setauthenticatedUser}=UseAuthenticatedUser();
   const pathname = usePathname();
@@ -38,7 +38,7 @@ const BottomNav = () => {
             </Link>
 
             <Link href={"/profiles/"+authenticatedUser?.id}>
-              <Image height={32} width={32} src={authenticatedUser?.userImage||""} alt="" className="rounded-full h-8 w-8 sm:h-9 sm:w-9 bg-secondary"/>
+              <Image height={32} width={32} src={authenticatedUser?.userImage||profilesvg.src} alt="" className={`${!authenticatedUser?.userImage&&'p-1'} rounded-full h-8 w-8 sm:h-9 sm:w-9 bg-secondary`}/>
             </Link>
           </div>
         </div>

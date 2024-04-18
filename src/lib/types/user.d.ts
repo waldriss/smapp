@@ -65,6 +65,14 @@ export interface TopUser{
     userImage:string;
 
 }
+export interface updatedUserMutationResponse {
+    message:string;
+    updatedUser:UpdatedUserFromResponse
+}
+export interface UpdatedUserFromResponse extends TopUser{
+    bio?:string;
+    userImage?:string;
+}
 
 export interface AuthenticatedUser extends TopUser{
 }

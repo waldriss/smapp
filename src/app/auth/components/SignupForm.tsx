@@ -25,8 +25,8 @@ import { useRegisterInDB } from "@/lib/react-query/mutations";
 
 const formSchema = z
   .object({
-    email_reg: z.string().min(2, {
-      message: "email must be at least 2 characters.",
+    email_reg: z.string().min(1, {
+      message: "please enter email.",
     }),
     password_reg: z.string().min(8, {
       message: "password must be at least 8 characters.",

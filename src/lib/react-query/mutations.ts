@@ -12,7 +12,12 @@ import {
 } from "../api/PostRequests";
 import { NewPost, UpdatedPost } from "../types/PostRequestsTypes";
 import { QUERY_KEYS } from "./queryKeys";
-import { UpdatedUser, UserToRegister } from "../types/user";
+import {
+  TUser,
+  UpdatedUser,
+  updatedUserMutationResponse,
+  UserToRegister,
+} from "../types/user";
 import {
   acceptFollow,
   deleteFollow,
@@ -90,8 +95,7 @@ export const useLikePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       likePost(postId, userId, getToken),
-    onMutate: async({ postId, userId }) => {
-      
+    onMutate: async ({ postId, userId }) => {
       queryClient.setQueriesData(
         { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
         (data: undefined | infiniteQueryData<IPost>) => {
@@ -127,7 +131,7 @@ export const useLikePost = (userId: string, getToken: GetToken) => {
         }
       );
     },
-    onSettled: (data,error,{postId}) => {
+    onSettled: (data, error, { postId }) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
@@ -146,8 +150,7 @@ export const useDisLikePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       dislikePost(postId, userId, getToken),
-    onMutate: async({ postId, userId }) => {
-   
+    onMutate: async ({ postId, userId }) => {
       queryClient.setQueriesData(
         { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
         (data: undefined | infiniteQueryData<IPost>) => {
@@ -185,7 +188,7 @@ export const useDisLikePost = (userId: string, getToken: GetToken) => {
         }
       );
     },
-    onSettled: (data,error,{postId}) => {
+    onSettled: (data, error, { postId }) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
@@ -205,8 +208,7 @@ export const useSharePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       sharePost(postId, userId, getToken),
-    onMutate: async({ postId, userId }) => {
-   
+    onMutate: async ({ postId, userId }) => {
       queryClient.setQueriesData(
         { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
         (data: undefined | infiniteQueryData<IPost>) => {
@@ -244,7 +246,7 @@ export const useSharePost = (userId: string, getToken: GetToken) => {
         }
       );
     },
-    onSettled: (data,error,{postId}) => {
+    onSettled: (data, error, { postId }) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
@@ -266,8 +268,7 @@ export const useUnsharePost = (userId: string, getToken: GetToken) => {
   return useMutation({
     mutationFn: ({ postId, userId }: { postId: number; userId: number }) =>
       unsharePost(postId, userId, getToken),
-    onMutate: async({ postId, userId }) => {
-   
+    onMutate: async ({ postId, userId }) => {
       queryClient.setQueriesData(
         { queryKey: [QUERY_KEYS.GET_HOME_POSTS, userId.toString()] },
         (data: undefined | infiniteQueryData<IPost>) => {
@@ -305,7 +306,7 @@ export const useUnsharePost = (userId: string, getToken: GetToken) => {
         }
       );
     },
-    onSettled: (data,error,{postId}) => {
+    onSettled: (data, error, { postId }) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_EXPLORE_POSTS, userId],
       });
@@ -416,7 +417,23 @@ export const useUpdateUser = (id: number, getToken: GetToken) => {
   return useMutation({
     mutationFn: (updatedUser: UpdatedUser) =>
       updateUser(updatedUser, id, getToken),
-    onSuccess: () => {
+    onSuccess: (updatedUserResponse: updatedUserMutationResponse) => {
+      queryClient.setQueriesData(
+        {
+          queryKey: [QUERY_KEYS.GET_USER, id.toString()],
+        },
+        (data: TUser | undefined) => {
+          return data
+            ? {
+                ...data,
+                bio: updatedUserResponse.updatedUser.bio,
+                name: updatedUserResponse.updatedUser.name,
+                username: updatedUserResponse.updatedUser.username,
+                userImage: updatedUserResponse.updatedUser.userImage,
+              }
+            : undefined;
+        }
+      );
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER, id.toString()],
       });

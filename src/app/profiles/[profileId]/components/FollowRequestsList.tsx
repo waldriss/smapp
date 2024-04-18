@@ -33,7 +33,7 @@ const FollowRequestsList = ({
         </div>
         
       </DialogTrigger>
-      <DialogContent className="!rounded-lg max-h-[60vh] h-[60vh]   min-w-[80%] sm:h-auto sm:max-h-[600px] lg:min-w-[750px] overflow-y-scroll border-none text-white  customScrollBar_dark bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2 ">
+      <DialogContent className="!rounded-lg    min-w-[80%] sm:h-auto sm:max-h-[600px] lg:min-w-[750px] overflow-y-scroll border-none text-white  customScrollBar_dark bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2 ">
         <DialogHeader>
           <DialogTitle className="text-whiteShade mb-3 font-sans ">
             Follow requests List

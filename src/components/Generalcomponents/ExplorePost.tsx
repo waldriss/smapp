@@ -44,7 +44,7 @@ const ExplorePost = ({
         className={`aspect-square w-full h-full rounded-3xl absolute top-0 ${loadedImage?"hidden":"block"}`}
       />
 
-      {!isprofilePage && (
+      {!isprofilePage && loadedImage&&  (
         <div
           className={
             " absolute font-sans rounded-b-3xl -bottom-[0px] px-6 pt-4 h-[88px] flex justify-between  w-full bg-gradient-to-t from-backgroundgrad2 to-transparent  "
