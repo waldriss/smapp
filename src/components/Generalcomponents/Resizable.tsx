@@ -57,7 +57,7 @@ const Resizable = ({
             />
           )}
 
-        <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
+        <ResizablePanel defaultSize={80} minSize={30}>
           <div
             id="scrollableResizable"
             className={`${pathname === "/"&&'hidescrollbar'} max-h-screen  min-h-screen overflow-auto sm:overflow-y-scroll customScrollBar_dark bg-gradient-to-t from-backgroundgrad1 to-backgroundgrad2`}
