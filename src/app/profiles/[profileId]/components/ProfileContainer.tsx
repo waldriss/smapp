@@ -18,10 +18,10 @@ const ProfileContainer = ({ user,userId}: { user: TUser,userId:string }) => {
   const [isEdit, setisEdit] = useState(false);
   const { isLoaded, isSignedIn, user:AuthenticatedUser } = useUser();
   const queryClient = useQueryClient()
-  useEffect(()=>{
+  /*useEffect(()=>{
       
     queryClient.setQueryData([QUERY_KEYS.GET_USER,userId],user );
-  },[user])
+  },[user])*/
 
 const isProfileOfAuth=AuthenticatedUser?.externalId?AuthenticatedUser.externalId==userData.id.toString():undefined
 

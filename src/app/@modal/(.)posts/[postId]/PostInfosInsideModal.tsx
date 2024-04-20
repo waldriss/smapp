@@ -32,9 +32,9 @@ const PostInfosInsideModal = ({
     isSuccess,
   } = useDeletePost(getToken);
   const queryClient = useQueryClient();
-  useEffect(() => {
+  /*useEffect(() => {
     queryClient.setQueryData([QUERY_KEYS.GET_POST, postId], post);
-  }, [post]);
+  }, [post]);*/
 
   const router = useRouter();
   const ismd = useMediaQuery("(min-width: 768px)");

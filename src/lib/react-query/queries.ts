@@ -119,7 +119,7 @@ export const useGetExploreUsers = (
     },
     initialPageParam: 1,
     initialData: {
-      pages: initialExploreUsers,
+      pages: [initialExploreUsers],
       pageParams: [1],
     },
     refetchOnMount: true,
@@ -142,7 +142,7 @@ export const useGetNotifications = (userId: string, initialNotifications: TNotif
       lastpage.length === 0 ? undefined : pages.length + 1,
     initialPageParam: 1,
     initialData:initialNotifications? {
-      pages: initialNotifications,
+      pages: [initialNotifications],
       pageParams: [1],
     }:{
       pages: [],

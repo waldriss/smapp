@@ -90,7 +90,7 @@ export const getHomePosts = async (
     );
 
     if (!postsResponse.ok) {
-      console.log(postsResponse);
+      
       return [];
     }
     const postsData = await postsResponse.json();
@@ -114,7 +114,11 @@ export const getPost = async (
         mode: "cors",
       },
     });
+    
     const postData = await postResponse.json();
+    if (!postResponse.ok) {
+      throw new Error(postData.message); // Error message from the backend
+    }
 
     return postData.post[0];
   } catch (error) {
@@ -141,7 +145,12 @@ export const getExplorePosts = async (
         },
       }
     );
-    console.log(postsResponse);
+    
+    
+    if (!postsResponse.ok) {
+      
+      return [];
+    }
     const postsData = await postsResponse.json();
 
     return postsData?.posts ? postsData.posts : [];
@@ -200,7 +209,7 @@ export const dislikePost = async (
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.log("not ok");
+      
       throw new Error(responseData.message); // Error message from the backend
     }
 

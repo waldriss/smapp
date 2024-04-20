@@ -28,9 +28,9 @@ const PostInfosContainer = ({
   const { mutateAsync: deletePost, isPending: isDeletingPost,isSuccess } =
     useDeletePost(getToken);
   const queryClient = useQueryClient();
-  useEffect(() => {
+  /*useEffect(() => {
     queryClient.setQueryData([QUERY_KEYS.GET_POST,postId], post);
-  }, [post]);
+  }, [post]);*/
 
   const router = useRouter();
 

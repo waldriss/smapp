@@ -442,6 +442,9 @@ export const useUpdateUser = (id: number, getToken: GetToken) => {
         queryKey: [QUERY_KEYS.GET_AUTHENTICATED_USER, id.toString()],
       });
     },
+    onError:(error)=>{
+      
+    }
   });
 };
 
@@ -518,6 +521,7 @@ export const useSeeNotification = (getToken: GetToken) => {
       userId: string;
     }) => seeNotification(notificationId, userId, getToken),
     onSuccess: (data, variables) => {
+      console.log(variables.userId);
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_NOTIFICATIONS, variables.userId],
       });

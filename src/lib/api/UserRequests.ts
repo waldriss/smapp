@@ -34,7 +34,7 @@ export const updateUser = async (updatedUser: UpdatedUser,id:number,getToken: Ge
 
     return responseData;
   } catch (error) {
-    console.error("Error:", error);
+    throw error
   }
 };
 
