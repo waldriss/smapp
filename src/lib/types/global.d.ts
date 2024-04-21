@@ -13,3 +13,10 @@ declare global {
     skipCache?: boolean;
 };
  export type GetToken = (options?: GetTokenOptions) => Promise<string | null>;
+
+
+
+
+
+
+ export type ToastError=(message:string,title:string)=>void

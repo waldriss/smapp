@@ -26,7 +26,7 @@ export const updateUser = async (updatedUser: UpdatedUser,id:number,getToken: Ge
     });
 
     const responseData = await response.json();
-    console.log(responseData);
+    
 
     if (!response.ok) {
       throw new Error(responseData.message); // Error message from the backend

@@ -42,7 +42,7 @@ const PostForm = ({ post }: { post?: TPostDetails}) => {
     resolver: zodResolver(PostValidation),
     defaultValues: {
       caption: post ? post?.caption : "",
-      file: [],
+      file: post?[undefined]:[],
       location: post ? post.location : "",
       tags: post ? post.tags.join(",") : "",
     },
@@ -62,6 +62,7 @@ const PostForm = ({ post }: { post?: TPostDetails}) => {
   const [resetFile, setResetFile] = useState(false);
 
   const handleSubmit = async (formPost: z.infer<typeof PostValidation>) => {
+    console.log(formPost.file[0]);
     if (user?.externalId) {
       if (!post) {
         const createdPost = await createPost({
@@ -86,7 +87,7 @@ const PostForm = ({ post }: { post?: TPostDetails}) => {
       } else {
         if (user.externalId === post.posterId.toString()) {
           const updatedPost = await updatePost({
-            file: formPost.file.length === 0 ? undefined : formPost.file,
+            file: formPost.file[0]===undefined ? undefined : formPost.file,
             caption: formPost.caption,
             location: formPost.location,
             tags: formPost.tags,
@@ -159,7 +160,7 @@ const PostForm = ({ post }: { post?: TPostDetails}) => {
                     mediaUrl={post?.postImage}
                   />
                 </FormControl>
-                <FormMessage className="shad-form_message" />
+                <FormMessage />
               </FormItem>
             )}
           />

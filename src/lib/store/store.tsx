@@ -8,29 +8,13 @@ interface AnimateHomeHeaderContext {
     setisAnimateHomeHeader:(isAnimateHomeHeader:boolean)=>void
 
 }
-
-
-
-
-
 export const UseAnimateHomeHeader=create<AnimateHomeHeaderContext>()((set)=>({
     isAnimateHomeHeader:false,
     setisAnimateHomeHeader:(isAnimateHomeHeader:boolean)=>set({isAnimateHomeHeader}),
 }))
 
 
-interface TokenContext {
-    token:string|null
-    setToken:(token:string|null)=>void
 
-}
-
-
-
-export const UseToken=create<TokenContext>()((set)=>({
-    token:null,
-    setToken:(token:string|null)=>set({token}),
-}))
 
 interface AuthenticatedUserContext {
     authenticatedUser:AuthenticatedUser|undefined;

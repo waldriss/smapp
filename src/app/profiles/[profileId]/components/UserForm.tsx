@@ -20,15 +20,21 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { generateUniqueId } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
+import ToastBody from "@/components/Generalcomponents/ToastBody";
 
 const formSchema = z.object({
-  username: z.string().min(8, {
-    message: "username must be at least 8 characters.",
-  }).max(20, { message: "Maximum 20 characters." }),
-  name: z.string().min(4, {
-    message: "name must be at least 4 characters.",
-  }).max(20, { message: "Maximum 20 characters." }),
+  username: z
+    .string()
+    .min(8, {
+      message: "username must be at least 8 characters.",
+    })
+    .max(20, { message: "Maximum 20 characters." }),
+  name: z
+    .string()
+    .min(4, {
+      message: "name must be at least 4 characters.",
+    })
+    .max(20, { message: "Maximum 20 characters." }),
   bio: z.string().optional(),
   file: z.custom<File[]>().optional(),
 });
@@ -39,37 +45,38 @@ const UserForm = ({
   isEdit,
   setisEdit,
   followers,
-  following
+  following,
 }: {
   isAuth: boolean | undefined;
   user: TUser;
   isEdit: boolean;
   setisEdit: (value: boolean) => void;
-  followers:FollowedRequest[];
-  following:FollowerRequest[]
+  followers: FollowedRequest[];
+  following: FollowerRequest[];
 }) => {
-  const toastContent = (message: string, id: string) => (
-    <div className="w-full">
-      <h4 className="font-semibold text-whiteShade text-base ">
-        Editing User
-      </h4>
-      <div className="flex items-center justify-between w-full">
-        <p className="text-muted-foreground text-[0.95rem]">{message}</p>
-        <Button onClick={() => toast.dismiss(id)} size={"sm"}>
-          Undo
-        </Button>
-      </div>
-    </div>
-  );
   const { user: authentifiedUser } = useUser();
   const { getToken } = useAuth();
-  const { mutateAsync: updateUser,isPending:isUpdatingUser } = useUpdateUser(user.id,getToken);
+  const toastError = (message: string, title: string) => {
+    const id = generateUniqueId();
+
+    toast(<ToastBody message={message} title={title} id={id} />, {
+      position: "bottom-center",
+      id: id,
+    });
+  };
+  const {
+    mutateAsync: updateUser,
+    isPending: isUpdatingUser,
+    error,
+  } = useUpdateUser(user.id, getToken, toastError);
+
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: user.username,
       name: user.name,
-      bio: user?.bio?user.bio:"",
+      bio: user?.bio ? user.bio : "",
       file: [],
     },
   });
@@ -77,29 +84,22 @@ const UserForm = ({
   const onSubmit = async (formUser: z.infer<typeof formSchema>) => {
     if (authentifiedUser?.externalId) {
       if (parseInt(authentifiedUser.externalId) === user.id) {
-        
         const updatedUser = await updateUser({
           name: formUser.name,
           username: formUser.username,
           bio: formUser.bio,
           file: formUser.file?.length === 0 ? undefined : formUser.file,
         });
-        if(updatedUser){
-          const id = generateUniqueId();
-          toast(
-            toastContent(
-              "Changes saved successfully. Your profile is now updated!",
-              id
-            ),
-            { position: "bottom-center", id: id }
+        if (updatedUser) {
+          toastError(
+            "Changes saved successfully. Your profile is now updated!",
+            "Editing User"
           );
-          
+
           setisEdit(false);
         }
       }
     }
-
-    
   };
 
   return (
@@ -111,12 +111,15 @@ const UserForm = ({
           setisEdit={setisEdit}
           userImage={user?.userImage}
           form={form}
-
           profileId={user.id}
           isUpdatingUser={isUpdatingUser}
-
         />
-        <ProfileStats profileId={user.id} postsNb={user.posts.length} followers={followers} following={following}  />
+        <ProfileStats
+          profileId={user.id}
+          postsNb={user.posts.length}
+          followers={followers}
+          following={following}
+        />
         <ProfileInfos
           form={form}
           isEdit={isEdit}

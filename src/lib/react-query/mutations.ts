@@ -26,7 +26,7 @@ import {
 } from "../api/UserRequests";
 import { seeNotification } from "../api/NotificationsRequests";
 import { registerUserInDB } from "../api/AuthRequests";
-import { GetToken } from "../types/global";
+import { GetToken, ToastError } from "../types/global";
 import {
   infiniteQueryData,
   IPost,
@@ -412,7 +412,7 @@ export const useRegisterInDB = () => {
 
 //------------User Mutations
 
-export const useUpdateUser = (id: number, getToken: GetToken) => {
+export const useUpdateUser = (id: number, getToken: GetToken,toastError:ToastError) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (updatedUser: UpdatedUser) =>
@@ -443,7 +443,8 @@ export const useUpdateUser = (id: number, getToken: GetToken) => {
       });
     },
     onError:(error)=>{
-      
+      toastError(error.message,"Editing User")
+
     }
   });
 };

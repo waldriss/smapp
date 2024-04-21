@@ -9,7 +9,7 @@ import profilesvg from "@public/svgs/profile.svg"
 const TopAccount = ({user}:{user:TopUser}) => {
   
   return (
-    <section className='bg-bgShade1  lg:w-44 px-2  xl:min-w-48 pt-6 pb-6 rounded-3xl border border-1px border-borderPrimary'>
+    <section className='bg-bgShade1  lg:w-44 px-2  xl:min-w-[50%] py-8 rounded-3xl border border-1px border-borderPrimary'>
     <div className="flex flex-col gap-y-5  items-center justify-center space-x-2">
         <Avatar className='w-14 h-14 border-borderPrimary border-3 border-solid'>
         <AvatarImage className=' ' src={user.userImage} />

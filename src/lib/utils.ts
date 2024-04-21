@@ -7,8 +7,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-//export const socket = io("http://localhost:5000");
-export const socket = io("https://sm-backend-i6qz.onrender.com/");
+export const socket = io("http://localhost:5000");
+//export const socket = io("https://sm-backend-i6qz.onrender.com/");
 
 export function generateUniqueId() {
   const timestamp = Date.now().toString(36); // Convert timestamp to base 36 string
@@ -16,8 +16,8 @@ export function generateUniqueId() {
   console.log(randomStr); // Generate random string
   return timestamp + randomStr; // Concatenate timestamp and random string
 }
-//export const backendUrl = "http://localhost:5000/";
-export const backendUrl="https://sm-backend-i6qz.onrender.com/"
+export const backendUrl = "http://localhost:5000/";
+//export const backendUrl="https://sm-backend-i6qz.onrender.com/"
 
 export const NotificationBody = (notification: TNotification) => {
   switch (notification.type) {
@@ -320,4 +320,6 @@ export function removeSharerFromOnePost(post: TPostDetails, sharerId: number): T
     shared_posts: post.shared_posts.filter(sharer => sharer.sharerId !== sharerId),
   };
 }
+
+
 

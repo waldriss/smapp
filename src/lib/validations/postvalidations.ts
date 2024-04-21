@@ -14,4 +14,4 @@ export const PostValidation = z.object({
     .regex(/^(\w+)(,\w+)*$|^$/, {
       message: "Tags must be separated by commas without spaces or be empty",
     }),
-});
+}).refine(({file})=>!(!file || Array.isArray(file)&&file.length===0),{message:"File is required",path:["file"]});
