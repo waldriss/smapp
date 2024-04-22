@@ -14,9 +14,10 @@ import AlertDelete from "./AlertDelete";
 const PostCommentsAndActions = ({
   post,
   deletePost,
+  ismodal
 }: {
+  ismodal?:boolean;
   post: TPostDetails;
-
   deletePost: UseMutateAsyncFunction<
     any,
     Error,
@@ -35,7 +36,8 @@ const PostCommentsAndActions = ({
       userId: post.posterId.toString(),
     });
     if (deletedPost) {
-      router.push("/");
+      if(ismodal) router.back(); else router.push("/");
+      
       const id = generateUniqueId();
       toast(toastContent("Post deleted successfully", id), {
         position: "bottom-center",

@@ -8,6 +8,7 @@ import LoadingSvg from "./LoadingSvg";
 import { UseAnimateHomeHeader } from "@/lib/store/store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/nextjs";
+import Nodata from "./Nodata";
 
 
 const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:string|null }) => {
@@ -66,7 +67,7 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
       {/*<h1  className=" pl-7 pt-8 text-4xl font-bold w-full text-whiteShade "> Home Feed</h1>*/}
       {/*<HomePostInfos open={false}/>*/}
       <InfiniteScroll
-        className="flex   sm:border-y-borderPrimary sm:border-y-1  pb-36 sm:pb-0  md:mt-14  flex-col justify-start items-center w-full"
+        className={`flex  ${scrollPosts.length!=0?'sm:border-y-borderPrimary sm:border-y-1 ':'sm:border-t-borderPrimary sm:border-t-1'}  pb-36 md:pb-0  md:mt-14  flex-col justify-start items-center w-full`}
         dataLength={scrollPosts.length}
         next={() => {
           fetchNextPage();
@@ -75,9 +76,9 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
         loader={<LoadingSvg className="w-32 h-32" />}
         scrollableTarget={"scrollablediv"}
       >
-        {scrollPosts.map((scrollPost: IPost) => (
+        {scrollPosts?.length!=0?scrollPosts.map((scrollPost: IPost) => (
           <Post key={scrollPost.id} post={scrollPost} />
-        ))}
+        )):<Nodata className="pt-14" />}
       </InfiniteScroll>
     </section>
   );

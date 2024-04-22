@@ -63,7 +63,7 @@ const PostInfos = ({
         {post.caption}
       </p>
 
-      <PostCommentsAndActions  deletePost={deletePost} post={post} />
+      <PostCommentsAndActions ismodal={ismodal}  deletePost={deletePost} post={post} />
     </section>
   );
 };

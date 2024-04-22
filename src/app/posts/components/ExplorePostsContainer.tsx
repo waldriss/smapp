@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import LoadingSvg from "@/components/Generalcomponents/LoadingSvg";
 import { UseAuthenticatedUser } from "@/lib/store/store";
 import { useAuth } from "@clerk/nextjs";
+import Nodata from "@/components/Generalcomponents/Nodata";
 
 const ExplorePostsContainer = ({
   posts,
@@ -65,11 +66,12 @@ const ExplorePostsContainer = ({
         </h2>
         {/*<SelectExplorePosts />*/}
       </div>
-      <section className="grid  gap-x-2 gap-y-2 py-10 justify-items-center max-w-full grid-cols-1 sm:grid-cols-3  md:grid-cols-2 lg:grid-cols-3 mx-auto">
+      {scrollPosts.length!=0?<section className="grid  gap-x-2 gap-y-2 py-10 justify-items-center max-w-full grid-cols-1 sm:grid-cols-3  md:grid-cols-2 lg:grid-cols-3 mx-auto">
         {scrollPosts.map((scrollPost: TExplorePost) => (
           <ExplorePost key={scrollPost.id} post={scrollPost} />
         ))}
       </section>
+      :<Nodata/>}
       <div className="w-full text-center">
         {hasNextPage &&
           (isFetchingNextPage ? (

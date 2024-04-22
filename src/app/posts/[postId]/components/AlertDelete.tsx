@@ -25,7 +25,7 @@ const AlertDelete = ({handleDelete}:{handleDelete: () => Promise<void>}) => {
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel className='bg-secondary font-sans text-whiteShade border-none'>Cancel</AlertDialogCancel>
+        <AlertDialogCancel className='bg-secondary hover:bg-[#2e3142] hover:text-whiteShade font-sans text-whiteShade border-none'>Cancel</AlertDialogCancel>
         <AlertDialogAction className='border-none font-sans' onClick={handleDelete} >Continue</AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>

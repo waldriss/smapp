@@ -41,14 +41,15 @@ const PostContent = ({ post }: { post: IPost }) => {
               subclass="!w-[52px] mb-[2px]"
             />
           </div>
-          <div className="flex justify-start items-center">
+          <Link href={`/posts/${post.id}`} className="flex justify-start items-center">
+           
             <MessageCircle className="w-[32px] h-[32px] stroke-2 stroke-whiteShade" />
 
             <span className="ml-1 text-base font-normal">
               {" "}
               {post._count.commented_posts}
             </span>
-          </div>
+          </Link>
 
           <Share
             postId={post.id}

@@ -98,7 +98,7 @@ const SideNav = ({
         }}
         className={cn(
           isCollapsed &&
-            "min-w-[80px] xl transition-all duration-300 ease-in-out ",
+            "min-w-[80px]  transition-all duration-300 ease-in-out ",
           "bg-bgShade1  flex-col hidden md:flex ",
           (pathname == "/auth" ||
             pathname == "/googleAuthLoader" ||
@@ -114,7 +114,7 @@ const SideNav = ({
                 isCollapsed ? "items-center" : "px-2"
               )}
             >
-              <Link href={"/"} className={`${isCollapsed&&"justify-center"} items-center  w-full flex gap-x-2`}>
+              <Link href={{pathname:"/",query:{openRequests:true}}} className={`${isCollapsed&&"justify-center"} items-center  w-full flex gap-x-2`}>
                 <Aperture className="h-12 w-12 text-primary stroke-[1.5px]"/>
             {!isCollapsed&&  <h2 className="text-3xl font-sans-serif2 font-semibold text-primary"> Imgram </h2>}
               </Link>
@@ -207,7 +207,7 @@ const SideNav = ({
                 <Button
                   onClick={logout}
                   size={"icon"}
-                  className="h-12 w-12 bg-[#191a24]  rounded-[5px]"
+                  className="h-12 w-12 bg-[#191a24] hover:bg-[#1d1e2a]  rounded-[5px]"
                 >
                   <LogOut className=" md:stroke-1 lg:stroke-2 h-6 w-6" />
                 </Button>
@@ -215,7 +215,7 @@ const SideNav = ({
                 <Button
                   onClick={logout}
                   size={"lg"}
-                  className="w-full  flex   justify-start pl-5 text-base py-7 rounded-[5px] bg-[#191a24] text-whiteShade hover:bg-[rgb(255,255,255,0.02)]"
+                  className="w-full  flex   justify-start pl-5 text-base py-7 rounded-[5px] bg-[#191a24] text-whiteShade hover:bg-[#1d1e2a]"
                 >
                   <LogOut className="mr-3  md:stroke-1 lg:stroke-2 h-6 w-6" />
                   <span className="md:text-sm lg:text-base">Log out</span>

@@ -18,12 +18,12 @@ export default async function Home() {
  
  
   const LoadingPosts = (
-    <div className="h-screen min-w-[65%] w-[65%] ">
+    <div className="h-screen w-full lg:min-w-[73%] lg:w-[73%]  xl:min-w-[65%] xl:w-[65%] ">
       <LoadingSvg className="h-32 w-32 mt-32 " />
     </div>
   );
   const LoadingTopAccounts = (
-    <div className="w-full">
+    <div className="w-full hidden lg:block">
       <LoadingSvg className="h-32 w-32 mt-32 " />
     </div>
   );

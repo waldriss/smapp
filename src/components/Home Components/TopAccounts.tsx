@@ -8,9 +8,9 @@ const TopAccounts = ({InitialtopUsers,userId,token}:{InitialtopUsers:TopUser[],u
   const { getToken } = useAuth();
   const {data:users}=useGetTopUsers(userId,InitialtopUsers,getToken) as {data:TopUser[]}
   return (
-    <section className='overflow-y-scroll customScrollBar_dark border-t-1 border-borderPrimary  w-full mt-[144px] hidden lg:block'>
+    <section className='overflow-y-scroll customScrollBar_dark   w-full mt-[110px] hidden lg:block'>
 
-    <section className='grid grid_auto pt-7 pb-4 gap-y-5 gap-x-1 pl-[18px] pr-0 justify-items-center  '>
+    <section className='grid grid_auto pt-[62px] pb-4 gap-y-5 gap-x-1 pl-[18px] pr-0 justify-items-center  '>
       {users.slice(0,6).map((user)=><TopAccount key={user.id} user={user} />)}
       
      
