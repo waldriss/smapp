@@ -62,7 +62,7 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
     <section
       ref={scrollableParentRef}
       id="scrollablediv"
-      className="relative sm:border-r-1 sm:border-borderPrimary max-h-screen md:h-screen w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[65%] xl:w-[65%] mt-20 md:mt-0 md:pt-[88px]  overflow-y-scroll customScrollBar_Home_dark "
+      className="relative sm:border-r-1 sm:border-borderPrimary max-h-screen md:h-screen w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[70%] xl:w-[70%] mt-20 md:mt-0 md:pt-[88px]  overflow-y-scroll customScrollBar_Home_dark "
     >
       {/*<h1  className=" pl-7 pt-8 text-4xl font-bold w-full text-whiteShade "> Home Feed</h1>*/}
       {/*<HomePostInfos open={false}/>*/}

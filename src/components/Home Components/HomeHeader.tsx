@@ -48,7 +48,7 @@ const refresh=()=>{
   
         layout
         transition={layoutDuration}
-        className="relative md:min-w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[65%] xl:w-[65%] flex justify-center items-center"
+        className="relative md:min-w-full lg:min-w-[73%] lg:w-[73%] xl:min-w-[70%] xl:w-[70%] flex justify-center items-center"
       >
         <motion.div
           layout
@@ -64,7 +64,7 @@ const refresh=()=>{
 
       <motion.div
         layout
-        className={`hidden lg:block flex-1 pl-[9px] relative ${isAnimateHomeHeader ? "" : ""}`}
+        className={`hidden lg:block flex-1  relative ${isAnimateHomeHeader ? "" : ""}`}
       >
         <div
           className={` h-20 bg-[#171821]  mt-8 rounded-2xl w-[90%] mx-auto border  border-borderPrimary flex justify-center items-center`}
