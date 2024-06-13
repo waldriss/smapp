@@ -26,7 +26,7 @@ const ExploreUsersContainer = ({
     search,getToken,authenticatedUser?.id.toString()
   );
   
-  const exploreUsers:TExploreUser[]=[].concat(...data.pages);
+  const exploreUsers:TExploreUser[]=data?[].concat(...data.pages):[];
   
   
   const queryClient = useQueryClient();

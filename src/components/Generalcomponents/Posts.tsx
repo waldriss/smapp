@@ -20,7 +20,8 @@ const Posts = ({ posts, userId,token }: { posts: IPost[]; userId: string,token:s
     getToken
   );
   
-  const scrollPosts: IPost[] = [].concat(...data.pages);
+  const scrollPosts: IPost[] = data?[].concat(...data.pages):[];
+  
  
  
 

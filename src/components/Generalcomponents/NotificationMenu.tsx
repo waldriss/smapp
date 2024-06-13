@@ -47,7 +47,7 @@ const NotificationMenu = ({
     getToken
   );
   if(!InitialNotifications) {refetch();}
-  const notifications: TNotification[] = [].concat(...data.pages);
+  const notifications: TNotification[] = data?[].concat(...data.pages):[];
  
   
   const notificationsRef=useRef(notifications);

@@ -35,7 +35,7 @@ const ExplorePostsContainer = ({
       getToken,
       authenticatedUser?.id.toString()
     );
-  const scrollPosts: TExplorePost[] = [].concat(...data.pages);
+  const scrollPosts: TExplorePost[] = data?[].concat(...data.pages):[];
 
   useEffect(() => {
     queryClient.setQueriesData(
